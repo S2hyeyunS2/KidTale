@@ -5,7 +5,7 @@ import StepIndicator from '../components/StepIndicator'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorMessage from '../components/ErrorMessage'
 import { getStory } from '../api/story'
-import { getTemplates, createBook } from '../api/book'
+import { createBook } from '../api/book'
 
 export default function Preview() {
   const { id } = useParams()
@@ -14,12 +14,7 @@ export default function Preview() {
 
   const [story, setStory] = useState(location.state?.story || null)
   const [currentPage, setCurrentPage] = useState(0)
-  const [coverTemplates, setCoverTemplates] = useState([])
-  const [contentTemplates, setContentTemplates] = useState([])
-  const [selectedCover, setSelectedCover] = useState('')
-  const [selectedContent, setSelectedContent] = useState('')
   const [loadingStory, setLoadingStory] = useState(!location.state?.story)
-  const [loadingTemplates, setLoadingTemplates] = useState(true)
   const [loadingBook, setLoadingBook] = useState(false)
   const [error, setError] = useState('')
 
@@ -33,38 +28,12 @@ export default function Preview() {
     }
   }, [id, story])
 
-  // 템플릿 조회
-  useEffect(() => {
-    Promise.all([getTemplates('cover'), getTemplates('content')])
-      .then(([covers, contents]) => {
-        setCoverTemplates(covers)
-        setContentTemplates(contents)
-        if (covers.length > 0) setSelectedCover(covers[0].templateUid)
-        if (contents.length > 0) setSelectedContent(contents[0].templateUid)
-      })
-      .catch(() => {
-        // 템플릿 API 오류 시 더미로 fallback (API 키 미설정 등)
-        setCoverTemplates([{ templateUid: 'default-cover', templateName: '기본 표지' }])
-        setContentTemplates([{ templateUid: 'default-content', templateName: '기본 내지' }])
-        setSelectedCover('default-cover')
-        setSelectedContent('default-content')
-      })
-      .finally(() => setLoadingTemplates(false))
-  }, [])
-
   const handleCreateBook = async () => {
-    if (!selectedCover || !selectedContent) {
-      setError('표지와 내지 템플릿을 선택해주세요.')
-      return
-    }
     setLoadingBook(true)
     setError('')
     try {
-      await createBook({
-        storyId: Number(id),
-        coverTemplateUid: selectedCover,
-        contentTemplateUid: selectedContent,
-      })
+      // 템플릿은 백엔드에서 자동 선택 — storyId만 전달
+      await createBook({ storyId: Number(id) })
       navigate(`/order/${id}`, { state: { story } })
     } catch (err) {
       setError(err.message)
@@ -226,84 +195,44 @@ export default function Preview() {
           </div>
         </details>
 
-        {/* 템플릿 선택 */}
-        {!loadingTemplates && (
-          <div className="card p-6 mb-6 animate-fadeInUp">
-            <h2 className="font-bold text-gray-900 mb-1">📚 책 디자인 선택</h2>
-            <p className="text-gray-500 text-sm mb-5">표지와 내지 스타일을 선택해주세요</p>
-
-            {/* 표지 템플릿 */}
-            {coverTemplates.length > 0 && (
-              <div className="mb-5">
-                <p className="text-sm font-semibold text-gray-700 mb-3">표지 스타일</p>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {coverTemplates.map((t) => (
-                    <button
-                      key={t.templateUid}
-                      onClick={() => setSelectedCover(t.templateUid)}
-                      className={`p-3 rounded-xl border-2 text-sm font-medium transition-all text-center
-                        ${selectedCover === t.templateUid
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-gray-200 text-gray-600 hover:border-primary/40'}`}
-                    >
-                      <div className="text-2xl mb-1">📖</div>
-                      {t.templateName}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* 내지 템플릿 */}
-            {contentTemplates.length > 0 && (
-              <div>
-                <p className="text-sm font-semibold text-gray-700 mb-3">내지 스타일</p>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {contentTemplates.map((t) => (
-                    <button
-                      key={t.templateUid}
-                      onClick={() => setSelectedContent(t.templateUid)}
-                      className={`p-3 rounded-xl border-2 text-sm font-medium transition-all text-center
-                        ${selectedContent === t.templateUid
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-gray-200 text-gray-600 hover:border-primary/40'}`}
-                    >
-                      <div className="text-2xl mb-1">📄</div>
-                      {t.templateName}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+        {/* 책 제작 안내 */}
+        <div className="card p-5 mb-6 animate-fadeInUp flex items-start gap-4">
+          <div className="text-3xl shrink-0">📚</div>
+          <div>
+            <p className="font-semibold text-gray-900">SweetBook 하드커버로 인쇄됩니다</p>
+            <p className="text-sm text-gray-500 mt-1">
+              AI가 생성한 삽화와 동화 텍스트로 전문 인쇄소에서 고품질 책을 제작해드립니다.
+              표지 및 내지 디자인은 자동으로 선택됩니다.
+            </p>
           </div>
-        )}
+        </div>
 
         <ErrorMessage message={error} />
 
         {/* CTA 버튼 */}
-        <div className="flex flex-col sm:flex-row gap-3 animate-fadeInUp">
-          <button
-            onClick={() => navigate('/create')}
-            className="btn-outline flex-1"
-          >
-            ← 다시 만들기
-          </button>
-          <button
-            onClick={handleCreateBook}
-            disabled={loadingBook || story.status !== 'DRAFT'}
-            className="btn-primary flex-1 text-base py-4"
-          >
-            {story.status !== 'DRAFT' ? '이미 책이 생성되었습니다' : '이 동화로 책 만들기 →'}
-          </button>
-        </div>
-
-        {story.status === 'BOOK_CREATED' && (
-          <div className="mt-4 text-center">
+        {story.status === 'BOOK_CREATED' ? (
+          <div className="flex flex-col sm:flex-row gap-3 animate-fadeInUp">
+            <button onClick={() => navigate('/create')} className="btn-outline flex-1">
+              ← 새 동화 만들기
+            </button>
             <button
               onClick={() => navigate(`/order/${id}`, { state: { story } })}
-              className="btn-primary w-full py-4 text-base"
+              className="btn-primary flex-1 text-base py-4"
             >
               주문하러 가기 →
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col sm:flex-row gap-3 animate-fadeInUp">
+            <button onClick={() => navigate('/create')} className="btn-outline flex-1">
+              ← 다시 만들기
+            </button>
+            <button
+              onClick={handleCreateBook}
+              disabled={loadingBook}
+              className="btn-primary flex-1 text-base py-4"
+            >
+              이 동화로 책 만들기 →
             </button>
           </div>
         )}

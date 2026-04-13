@@ -51,8 +51,7 @@ public class BookController {
     public ResponseEntity<ApiResponse<BookCreateResponse>> createBook(
             @Valid @RequestBody BookCreateRequest request
     ) {
-        log.debug("[BookController] POST /api/books. storyId={}, coverTpl={}, contentTpl={}",
-                request.storyId(), request.coverTemplateUid(), request.contentTemplateUid());
+        log.debug("[BookController] POST /api/books. storyId={}", request.storyId());
         BookCreateResponse response = bookService.createBook(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
