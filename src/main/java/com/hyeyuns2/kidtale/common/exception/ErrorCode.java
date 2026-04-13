@@ -24,7 +24,9 @@ public enum ErrorCode {
 
     // Order
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "ORDER_NOT_FOUND", "주문을 찾을 수 없습니다."),
-    ORDER_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "ORDER_FAILED", "주문 처리에 실패했습니다.");
+    ORDER_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "ORDER_FAILED", "주문 처리에 실패했습니다."),
+    ORDER_NOT_BOOK_CREATED(HttpStatus.BAD_REQUEST, "ORDER_NOT_BOOK_CREATED", "책 생성이 완료된 동화만 주문할 수 있습니다."),
+    ORDER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "ORDER_ALREADY_EXISTS", "이미 주문된 동화입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
