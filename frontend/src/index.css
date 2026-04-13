@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-gray-800 bg-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-semibold px-8 py-3 rounded-full
+           hover:bg-primary-dark transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary font-semibold px-8 py-3 rounded-full
+           hover:bg-primary hover:text-white transition-colors duration-200;
+  }
+
+  .input-field {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3
+           focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
+           transition-all duration-200 text-gray-800 placeholder-gray-400;
+  }
+
+  .card {
+    @apply bg-white rounded-card shadow-card overflow-hidden;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-gray-900;
+  }
+}
+
+/* 페이지 넘김 애니메이션 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+/* 로딩 dot bounce */
+@keyframes bounce-delay {
+  0%, 80%, 100% { transform: scale(0); }
+  40%           { transform: scale(1); }
+}
+.dot-bounce > span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #E8526A;
+  animation: bounce-delay 1.4s infinite ease-in-out both;
+}
+.dot-bounce > span:nth-child(1) { animation-delay: -0.32s; }
+.dot-bounce > span:nth-child(2) { animation-delay: -0.16s; }
