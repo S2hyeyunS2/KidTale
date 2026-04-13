@@ -10,6 +10,8 @@ import com.hyeyuns2.kidtale.external.sweetbook.dto.response.BookSpec;
 import com.hyeyuns2.kidtale.external.sweetbook.dto.response.CreateBookData;
 import com.hyeyuns2.kidtale.external.sweetbook.dto.response.CreateOrderData;
 import com.hyeyuns2.kidtale.external.sweetbook.dto.response.SweetBookApiResponse;
+import com.hyeyuns2.kidtale.external.sweetbook.dto.response.Template;
+import com.hyeyuns2.kidtale.external.sweetbook.dto.response.TemplateListData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
@@ -145,6 +147,32 @@ public class SweetBookClient {
             throw e;
         } catch (Exception e) {
             log.error("[SweetBookClient] POST /orders failed.", e);
+            throw new KidTaleException(ErrorCode.SWEETBOOK_API_ERROR);
+        }
+    }
+
+    public List<Template> getTemplates(String bookSpecUid, String templateKind) {
+        try {
+            SweetBookApiResponse<TemplateListData> response = webClient.get()
+                    .uri(uriBuilder -> {
+                        var b = uriBuilder.path("/templates");
+                        if (bookSpecUid != null) b = b.queryParam("bookSpecUid", bookSpecUid);
+                        if (templateKind != null) b = b.queryParam("templateKind", templateKind);
+                        return b.build();
+                    })
+                    .retrieve()
+                    .bodyToMono(new ParameterizedTypeReference<SweetBookApiResponse<TemplateListData>>() {})
+                    .blockOptional()
+                    .orElseThrow(() -> new KidTaleException(ErrorCode.SWEETBOOK_API_ERROR));
+            return response.data().templates();
+        } catch (WebClientResponseException e) {
+            log.error("[SweetBookClient] GET /templates failed. status={}, body={}",
+                    e.getStatusCode(), e.getResponseBodyAsString(), e);
+            throw new KidTaleException(ErrorCode.SWEETBOOK_API_ERROR);
+        } catch (KidTaleException e) {
+            throw e;
+        } catch (Exception e) {
+            log.error("[SweetBookClient] GET /templates failed.", e);
             throw new KidTaleException(ErrorCode.SWEETBOOK_API_ERROR);
         }
     }

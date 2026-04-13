@@ -26,6 +26,7 @@ sweetbook:
   api:
     base-url: ${SWEETBOOK_API_BASE_URL:https://api-sandbox.sweetbook.com/v1}
     key: ${SWEETBOOK_API_KEY}
+    book-spec-uid: ${SWEETBOOK_BOOK_SPEC_UID:SQUAREBOOK_HC}
 
 gemini:
   api:
