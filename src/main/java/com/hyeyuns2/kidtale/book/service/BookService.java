@@ -39,6 +39,9 @@ public class BookService {
     private static final List<String> EXCLUDED_TEMPLATE_KEYWORDS =
             List.of("알림장", "월시작", "dateA", "dateB", "monthHeader", "date");
 
+    // GET /book-specs 호출 실패 시 사용하는 SQUAREBOOK_HC 기본 최소 페이지 수
+    private static final int FALLBACK_MIN_PAGES = 24;
+
     private final StoryRepository storyRepository;
     private final SweetBookClient sweetBookClient;
     private final SweetBookProperties sweetBookProperties;
@@ -97,7 +100,7 @@ public class BookService {
                         buildCoverParams(story.getTitle(), story.getChildName(), story.getTheme()),
                         null));
 
-        // 3. POST /books/{id}/contents (페이지별)
+        // 3. POST /books/{id}/contents (동화 페이지)
         for (int i = 0; i < pages.size(); i++) {
             StoryPage page = pages.get(i);
             sweetBookClient.createContents(sweetBookId,
@@ -108,6 +111,22 @@ public class BookService {
                             i == 0 ? null : "page"));
         }
 
+        // 3-1. 최소 페이지 수 미달 시 빈 페이지로 채우기
+        int minPages = resolveMinPages(resolveBookSpecUid());
+        String blankTemplateUid = selectBlankTemplate(contentTemplateUid);
+        int fillerCount = Math.max(0, minPages - pages.size());
+        log.debug("[BookService] 최소 페이지={}, 현재={}, 추가 필요={}", minPages, pages.size(), fillerCount);
+
+        for (int i = 0; i < fillerCount; i++) {
+            int fillerPageNum = pages.size() + i + 1;
+            sweetBookClient.createContents(sweetBookId,
+                    new CreateContentRequest(
+                            blankTemplateUid,
+                            buildFillerParams(fillerPageNum),
+                            null,
+                            "page"));
+        }
+
         // 4. POST /books/{id}/finalization
         sweetBookClient.finalizeBook(sweetBookId);
 
@@ -115,6 +134,66 @@ public class BookService {
         log.info("[BookService] 책 생성 완료. storyId={}, sweetBookId={}", story.getId(), sweetBookId);
 
         return new BookCreateResponse(sweetBookId, story.getId(), story.getTitle());
+    }
+
+    // ── 최소 페이지 / 빈 페이지 ───────────────────────────────────────────────
+
+    /**
+     * GET /book-specs 로 bookSpecUid의 pageMin을 조회한다.
+     * API 호출 실패 시 FALLBACK_MIN_PAGES(24)를 사용한다.
+     */
+    private int resolveMinPages(String bookSpecUid) {
+        try {
+            return sweetBookClient.getBookSpecs().stream()
+                    .filter(spec -> bookSpecUid.equals(spec.bookSpecUid()))
+                    .mapToInt(spec -> spec.pageMin())
+                    .findFirst()
+                    .orElse(FALLBACK_MIN_PAGES);
+        } catch (Exception e) {
+            log.warn("[BookService] book-specs 조회 실패, 기본값 사용. fallback={}", FALLBACK_MIN_PAGES, e);
+            return FALLBACK_MIN_PAGES;
+        }
+    }
+
+    /**
+     * 빈 페이지에 사용할 템플릿을 결정한다.
+     * '빈내지' 템플릿이 있으면 그것을, 없으면 동화 내지와 동일한 템플릿을 사용한다.
+     */
+    private String selectBlankTemplate(String fallbackContentTemplateUid) {
+        try {
+            List<Template> contentTemplates =
+                    sweetBookClient.getTemplates(resolveBookSpecUid(), "content");
+            return contentTemplates.stream()
+                    .filter(t -> t.templateName().equals("빈내지"))
+                    .map(Template::templateUid)
+                    .findFirst()
+                    .orElse(fallbackContentTemplateUid);
+        } catch (Exception e) {
+            log.warn("[BookService] 빈내지 템플릿 조회 실패, 내지 템플릿 사용.", e);
+            return fallbackContentTemplateUid;
+        }
+    }
+
+    /** 빈 페이지 파라미터 — 텍스트 없이 이미지 자리만 채운다. */
+    private String buildFillerParams(int pageNumber) {
+        String imageUrl = POLLINATIONS_BASE
+                + urlEncode("soft pastel background children book decoration page")
+                + "?width=800&height=600&model=flux&nologo=true&seed=" + (pageNumber + 100);
+
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("text",         "");
+        params.put("pageText",     "");
+        params.put("pageNumber",   pageNumber);
+        params.put("title",        "");
+        params.put("dateRange",    "");
+        params.put("date",         "");
+        params.put("contentPhoto", imageUrl);
+        params.put("pagePhoto",    imageUrl);
+        params.put("contentImage", imageUrl);
+        params.put("photo",        imageUrl);
+        params.put("image",        imageUrl);
+        params.put("mainPhoto",    imageUrl);
+        return serialize(params);
     }
 
     // ── 템플릿 자동 선택 ──────────────────────────────────────────────────────
