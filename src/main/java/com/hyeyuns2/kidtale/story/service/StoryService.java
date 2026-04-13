@@ -49,6 +49,13 @@ public class StoryService {
     }
 
     @Transactional(readOnly = true)
+    public List<StoryResponse> findAll() {
+        return storyRepository.findTop10ByOrderByCreatedAtDesc().stream()
+                .map(story -> toResponse(story, deserializePages(story.getPagesJson())))
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public StoryResponse findById(Long id) {
         Story story = storyRepository.findById(id)
                 .orElseThrow(() -> new KidTaleException(ErrorCode.STORY_NOT_FOUND));
