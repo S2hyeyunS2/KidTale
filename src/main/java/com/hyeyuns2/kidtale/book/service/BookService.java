@@ -21,6 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +32,7 @@ import java.util.Map;
 public class BookService {
 
     private static final String DEFAULT_BOOK_SPEC_UID = "SQUAREBOOK_HC";
+    private static final String POLLINATIONS_BASE = "https://image.pollinations.ai/prompt/";
 
     private final StoryRepository storyRepository;
     private final SweetBookClient sweetBookClient;
@@ -81,7 +85,7 @@ public class BookService {
         log.debug("[BookService] 책 생성 완료. sweetBookId={}", sweetBookId);
 
         // 2. POST /books/{id}/cover — 사용자가 선택한 표지 템플릿 등록
-        String coverParams = buildCoverParams(story.getTitle(), story.getChildName());
+        String coverParams = buildCoverParams(story.getTitle(), story.getChildName(), story.getTheme());
         sweetBookClient.createCover(sweetBookId,
                 new CreateCoverRequest(request.coverTemplateUid(), coverParams, null));
         log.debug("[BookService] 표지 등록 완료. sweetBookId={}, templateUid={}",
@@ -90,7 +94,7 @@ public class BookService {
         // 3. POST /books/{id}/contents — 사용자가 선택한 내지 템플릿으로 페이지별 등록
         for (int i = 0; i < pages.size(); i++) {
             StoryPage page = pages.get(i);
-            String contentParams = buildContentParams(page.text(), page.pageNumber());
+            String contentParams = buildContentParams(page.text(), page.pageNumber(), page.imageDescription());
             String breakBefore = (i == 0) ? null : "page";
             sweetBookClient.createContents(sweetBookId,
                     new CreateContentRequest(
@@ -126,28 +130,77 @@ public class BookService {
         }
     }
 
-    private String buildCoverParams(String title, String childName) {
+    /**
+     * 표지 파라미터를 빌드한다.
+     * SweetBook 템플릿마다 요구하는 이미지 파라미터 이름이 다르므로 (coverPhoto, frontPhoto 등)
+     * 알려진 모든 이름에 동일한 AI 생성 이미지 URL을 주입한다.
+     */
+    private String buildCoverParams(String title, String childName, String theme) {
+        String imageUrl = buildCoverImageUrl(title, theme);
         try {
-            return objectMapper.writeValueAsString(Map.of(
-                    "bookTitle", title,
-                    "childName", childName
-            ));
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("bookTitle", title);
+            params.put("childName", childName);
+            // 템플릿별로 파라미터 이름이 다를 수 있으므로 모든 가능한 이름을 채워 넣는다
+            params.put("coverPhoto",  imageUrl);
+            params.put("frontPhoto",  imageUrl);
+            params.put("backPhoto",   imageUrl);
+            params.put("spinePhoto",  imageUrl);
+            params.put("coverImage",  imageUrl);
+            params.put("mainPhoto",   imageUrl);
+            params.put("photo",       imageUrl);
+            return objectMapper.writeValueAsString(params);
         } catch (JsonProcessingException e) {
             log.error("[BookService] 표지 파라미터 직렬화 실패.", e);
             throw new KidTaleException(ErrorCode.SWEETBOOK_API_ERROR);
         }
     }
 
-    private String buildContentParams(String text, int pageNumber) {
+    /**
+     * 내지 파라미터를 빌드한다.
+     * imageDescription(영문)으로 Pollinations.ai를 통해 AI 삽화 URL을 생성하고
+     * 역시 모든 가능한 이미지 파라미터 이름에 주입한다.
+     */
+    private String buildContentParams(String text, int pageNumber, String imageDescription) {
+        String imageUrl = buildContentImageUrl(imageDescription, pageNumber);
         try {
-            return objectMapper.writeValueAsString(Map.of(
-                    "text", text,
-                    "pageNumber", pageNumber
-            ));
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("text", text);
+            params.put("pageNumber", pageNumber);
+            params.put("contentPhoto",  imageUrl);
+            params.put("pagePhoto",     imageUrl);
+            params.put("contentImage",  imageUrl);
+            params.put("photo",         imageUrl);
+            params.put("image",         imageUrl);
+            params.put("mainPhoto",     imageUrl);
+            return objectMapper.writeValueAsString(params);
         } catch (JsonProcessingException e) {
             log.error("[BookService] 내지 파라미터 직렬화 실패.", e);
             throw new KidTaleException(ErrorCode.SWEETBOOK_API_ERROR);
         }
+    }
+
+    /**
+     * Pollinations.ai를 이용해 표지 AI 이미지 URL을 생성한다. (무료, API 키 불필요)
+     */
+    private String buildCoverImageUrl(String title, String theme) {
+        String desc = title + " " + theme + " children fairy tale book cover illustration colorful cute";
+        return POLLINATIONS_BASE + urlEncode(desc) + "?width=800&height=800&model=flux&nologo=true";
+    }
+
+    /**
+     * Pollinations.ai를 이용해 내지 페이지 AI 삽화 URL을 생성한다. (무료, API 키 불필요)
+     */
+    private String buildContentImageUrl(String imageDescription, int pageNumber) {
+        String base = (imageDescription != null && !imageDescription.isBlank())
+                ? imageDescription
+                : "fairy tale scene page " + pageNumber;
+        String desc = base + " children book illustration watercolor colorful";
+        return POLLINATIONS_BASE + urlEncode(desc) + "?width=800&height=600&model=flux&nologo=true&seed=" + pageNumber;
+    }
+
+    private String urlEncode(String text) {
+        return URLEncoder.encode(text, StandardCharsets.UTF_8);
     }
 
     private List<StoryPage> deserializePages(String pagesJson) {

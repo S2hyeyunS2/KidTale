@@ -1,23 +1,55 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import { getStories } from '../api/story'
 
-const DUMMY_STORIES = [
-  { id: 1, title: '지우의 별나라 여행', childName: '지우', theme: '우주 탐험', emoji: '🚀' },
-  { id: 2, title: '수아의 바닷속 친구들', childName: '수아', theme: '바닷속 마법', emoji: '🐠' },
-  { id: 3, title: '민준이의 마법 레시피', childName: '민준', theme: '숲속 요리사', emoji: '🍄' },
+const FALLBACK_STORIES = [
+  { id: null, title: '지우의 별나라 여행', childName: '지우', theme: '우주 탐험', emoji: '🚀' },
+  { id: null, title: '수아의 바닷속 친구들', childName: '수아', theme: '바닷속 마법', emoji: '🐠' },
+  { id: null, title: '민준이의 마법 레시피', childName: '민준', theme: '숲속 요리사', emoji: '🍄' },
 ]
 
 const THEMES = [
-  { label: '우주 탐험', emoji: '🚀', desc: '별나라 친구들과의 모험' },
-  { label: '바닷속 마법', emoji: '🐠', desc: '신비로운 바다 세계 탐험' },
-  { label: '숲속 모험', emoji: '🌲', desc: '동물 친구들과 숲 여행' },
-  { label: '공룡 왕국', emoji: '🦕', desc: '공룡들이 사는 땅으로' },
-  { label: '마법사 학교', emoji: '🧙', desc: '마법을 배우는 특별한 학교' },
-  { label: '요리 대모험', emoji: '🍳', desc: '세상에서 가장 맛있는 요리' },
+  { label: '우주 탐험',    emoji: '🚀', desc: '별나라 친구들과의 모험' },
+  { label: '바닷속 마법',  emoji: '🐠', desc: '신비로운 바다 세계 탐험' },
+  { label: '숲속 모험',    emoji: '🌲', desc: '동물 친구들과 숲 여행' },
+  { label: '공룡 왕국',    emoji: '🦕', desc: '공룡들이 사는 땅으로' },
+  { label: '마법사 학교',  emoji: '🧙', desc: '마법을 배우는 특별한 학교' },
+  { label: '요리 대모험',  emoji: '🍳', desc: '세상에서 가장 맛있는 요리' },
 ]
+
+const THEME_EMOJI_MAP = {
+  '우주': '🚀', '별': '⭐', '바다': '🐠', '숲': '🌲', '공룡': '🦕',
+  '마법': '🧙', '요리': '🍳', '동물': '🐾', '여행': '✈️', '모험': '🗺️',
+}
+
+function storyEmoji(theme = '') {
+  const matched = Object.entries(THEME_EMOJI_MAP).find(([key]) => theme.includes(key))
+  return matched ? matched[1] : '📖'
+}
 
 export default function Home() {
   const navigate = useNavigate()
+  const [sampleStories, setSampleStories] = useState([])
+  const [storiesLoading, setStoriesLoading] = useState(true)
+
+  useEffect(() => {
+    getStories()
+      .then((data) => {
+        if (data && data.length > 0) {
+          setSampleStories(data.slice(0, 3))
+        } else {
+          setSampleStories(FALLBACK_STORIES)
+        }
+      })
+      .catch(() => setSampleStories(FALLBACK_STORIES))
+      .finally(() => setStoriesLoading(false))
+  }, [])
+
+  const handleStoryClick = (story) => {
+    if (!story.id) return // fallback 더미는 클릭 불가
+    navigate(`/preview/${story.id}`, { state: { story } })
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -80,7 +112,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { step: '01', icon: '✍️', title: '아이 정보 입력', desc: '이름·나이·좋아하는 테마만 입력하세요. 30초면 충분합니다.' },
-              { step: '02', icon: '🤖', title: 'AI 동화 생성', desc: 'Gemini AI가 10페이지 분량의 맞춤 동화를 즉시 만들어드립니다.' },
+              { step: '02', icon: '🤖', title: 'AI 동화 생성',  desc: 'Gemini AI가 10페이지 분량의 맞춤 동화를 즉시 만들어드립니다.' },
               { step: '03', icon: '📬', title: '실제 책으로 배송', desc: 'SweetBook 전문 인쇄소에서 고품질 하드커버 책을 제작해 배송합니다.' },
             ].map((item) => (
               <div key={item.step} className="card p-8 text-center hover:shadow-card-hover transition-shadow duration-200">
@@ -120,29 +152,63 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="section-title text-center mb-3">실제 생성된 동화들</h2>
           <p className="text-gray-500 text-center mb-12">AI가 만든 동화를 미리 감상해보세요</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {DUMMY_STORIES.map((s) => (
-              <div
-                key={s.id}
-                onClick={() => navigate(`/preview/${s.id}`)}
-                className="card cursor-pointer hover:shadow-card-hover hover:-translate-y-1 transition-all duration-200"
-              >
-                <div className="h-48 bg-gradient-to-br from-primary/10 to-rose-100 flex items-center justify-center">
-                  <span className="text-6xl">{s.emoji}</span>
-                </div>
-                <div className="p-5">
-                  <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">
-                    {s.theme}
-                  </span>
-                  <h3 className="font-bold text-gray-900 text-lg mt-3 mb-1">{s.title}</h3>
-                  <p className="text-gray-400 text-sm">주인공: {s.childName}</p>
-                  <button className="mt-4 text-primary text-sm font-semibold hover:underline">
-                    미리보기 →
-                  </button>
-                </div>
+
+          {storiesLoading ? (
+            <div className="flex justify-center gap-3 py-8">
+              <div className="dot-bounce">
+                <span /><span /><span />
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {sampleStories.map((s, idx) => {
+                const emoji = s.emoji || storyEmoji(s.theme)
+                const canPreview = !!s.id
+                return (
+                  <div
+                    key={s.id ?? idx}
+                    onClick={() => handleStoryClick(s)}
+                    className={`card transition-all duration-200
+                      ${canPreview
+                        ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-1'
+                        : 'cursor-default opacity-70'}`}
+                  >
+                    <div className="h-48 bg-gradient-to-br from-primary/10 to-rose-100 overflow-hidden relative">
+                      {canPreview ? (
+                        <img
+                          src={`https://image.pollinations.ai/prompt/${encodeURIComponent(`${s.title} ${s.theme} children fairy tale book cover colorful cute`)  }?width=400&height=300&model=flux&nologo=true`}
+                          alt={s.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.target.style.display = 'none'
+                            e.target.nextSibling.style.display = 'flex'
+                          }}
+                        />
+                      ) : null}
+                      <div className={`${canPreview ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center`}>
+                        <span className="text-6xl">{emoji}</span>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">
+                        {s.theme}
+                      </span>
+                      <h3 className="font-bold text-gray-900 text-lg mt-3 mb-1">{s.title}</h3>
+                      <p className="text-gray-400 text-sm">주인공: {s.childName}</p>
+                      {canPreview ? (
+                        <button className="mt-4 text-primary text-sm font-semibold hover:underline">
+                          미리보기 →
+                        </button>
+                      ) : (
+                        <p className="mt-4 text-gray-300 text-xs">샘플 준비 중</p>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -154,7 +220,10 @@ export default function Home() {
             오늘, 우리 아이의 이름이 들어간<br />동화책을 만들어보세요
           </h2>
           <p className="text-white/80 mb-8">세상에 단 하나뿐인 선물 · AI 생성 · 전문 인쇄 배송</p>
-          <button onClick={() => navigate('/create')} className="bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-gray-50 transition-colors text-base">
+          <button
+            onClick={() => navigate('/create')}
+            className="bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-gray-50 transition-colors text-base"
+          >
             지금 바로 만들기 →
           </button>
         </div>

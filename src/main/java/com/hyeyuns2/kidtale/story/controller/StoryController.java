@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/stories")
@@ -24,6 +26,13 @@ public class StoryController {
 
     public StoryController(StoryService storyService) {
         this.storyService = storyService;
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<StoryResponse>>> getStories() {
+        log.debug("[StoryController] GET /api/stories");
+        List<StoryResponse> response = storyService.findAll();
+        return ResponseEntity.ok(ApiResponse.ok(response));
     }
 
     @PostMapping
