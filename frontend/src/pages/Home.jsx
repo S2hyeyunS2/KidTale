@@ -111,7 +111,7 @@ export default function Home() {
           <p className="text-gray-500 text-center mb-12">3단계로 완성하는 세상에 하나뿐인 동화책</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { step: '01', icon: '✍️', title: '아이 정보 입력', desc: '이름·나이·좋아하는 테마만 입력하세요. 30초면 충분합니다.' },
+              { step: '01', icon: '✍️', title: '아이 정보 입력', desc: '이름·나이·좋아하는 테마만 입력하세요. 3분이면 충분합니다.' },
               { step: '02', icon: '🤖', title: 'AI 동화 생성',  desc: 'Gemini AI가 24페이지 분량의 맞춤 동화를 즉시 만들어드립니다.' },
               { step: '03', icon: '📬', title: '실제 책으로 배송', desc: 'SweetBook 전문 인쇄소에서 고품질 하드커버 책을 제작해 배송합니다.' },
             ].map((item) => (
