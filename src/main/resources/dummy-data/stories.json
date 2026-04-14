@@ -7,123 +7,63 @@
     "pages": [
       {
         "pageNumber": 1,
-        "text": "어느 맑은 밤, 지우는 창문 너머 반짝이는 별들을 바라보았어요.",
-        "imageDescription": "A cheerful 5-year-old Korean boy Jiwoo looking out a window at a starry night sky, cozy bedroom with warm lighting"
+        "text": "어느 맑은 밤, 지우는 창문 너머 반짝이는 별들을 바라보았어요. '저 별나라에 가보고 싶다!' 지우는 두 눈을 꼭 감고 소원을 빌었어요. 그런데 신기한 일이 일어났어요! 방 안에 작고 귀여운 은빛 로켓이 뿅 하고 나타난 거예요. 지우는 눈을 동그랗게 뜨고 로켓을 만져보았어요. 정말 진짜 로켓이었어요!",
+        "imageDescription": "A cheerful 5-year-old Korean boy Jiwoo in pajamas looking out a bedroom window at a starry night sky, a small silver rocket appearing magically on the floor, warm bedroom lighting"
       },
       {
         "pageNumber": 2,
-        "text": "'저 별나라에 가보고 싶다!' 소원을 빌자, 방 안에 작고 귀여운 로켓이 나타났어요.",
-        "imageDescription": "A small cute silver rocket appearing magically in Jiwoo's cozy bedroom, soft golden light, Jiwoo looking surprised and delighted"
+        "text": "지우는 용감하게 우주복을 입고 로켓에 올라탔어요. 슝! 로켓이 하늘 높이 날아오르자 집이 점점 작아졌어요. 창문 밖으로 구름이 솜사탕처럼 지나갔어요. 지구가 파란 구슬처럼 보이기 시작하자 지우는 '우와!' 하고 소리를 질렀어요. 별들이 가까워질수록 더욱 환하게 빛났고, 지우의 마음도 설레임으로 가득 찼어요.",
+        "imageDescription": "Jiwoo in a white child-sized spacesuit inside a cozy rocket cockpit, looking through the window at Earth becoming a small blue marble, stars twinkling brightly all around"
       },
       {
         "pageNumber": 3,
-        "text": "지우는 우주복을 입고 로켓에 올라탔어요. 슝! 로켓이 하늘 높이 날아올랐어요.",
-        "imageDescription": "Jiwoo in a child-sized white spacesuit climbing into a rocket launching from his bedroom window into a starry night sky"
+        "text": "로켓이 별나라에 가까워지자 반짝반짝 빛나는 별 친구들이 나타났어요. '안녕, 지우야! 우리 별나라에 온 걸 환영해!' 별 친구들은 둥근 얼굴에 눈이 반짝반짝했어요. 지우는 처음에는 조금 부끄러웠지만, 별 친구들이 너무 친절해서 금방 웃음이 나왔어요. '나는 지우야, 만나서 정말 반가워!' 지우와 별 친구들은 금세 좋은 친구가 되었어요.",
+        "imageDescription": "Jiwoo floating in space being greeted by friendly glowing star characters with cute round faces and sparkling eyes, colorful nebula background with pink and purple clouds"
       },
       {
         "pageNumber": 4,
-        "text": "지구가 파란 구슬처럼 작아졌어요. 지우는 신기해서 눈이 동그래졌지요.",
-        "imageDescription": "Jiwoo in rocket cockpit looking through window at a beautiful small blue Earth getting smaller, stars twinkling all around"
+        "text": "별 친구들이 지우를 우주 정원으로 데려갔어요. 무지개빛 행성 열매들이 나무에 주렁주렁 열려 있었어요. 지우가 반짝이는 열매를 한 개 따서 먹자 입 안에서 퐁퐁 터지며 달콤한 맛이 났어요. '세상에서 제일 맛있어!' 지우가 눈을 반짝이며 말했어요. 별 친구들은 깔깔깔 웃으며 더 많은 열매를 따다 주었어요. 우주 정원은 정말 신기하고 아름다운 곳이었어요.",
+        "imageDescription": "Jiwoo in spacesuit picking colorful planet-shaped glowing fruits in a magical space garden, friendly star friends watching and laughing, cosmic flowers and sparkling plants surrounding them"
       },
       {
         "pageNumber": 5,
-        "text": "로켓 창문 밖으로 토성의 고리가 보였어요. 지우는 '우와!' 하고 소리쳤어요.",
-        "imageDescription": "Jiwoo pressing his nose against the rocket window, Saturn and its magnificent rings glowing beautifully in the distance"
+        "text": "별 친구들과 달빛 미끄럼틀을 타니 몸이 둥실둥실 떠올라서 정말 신났어요. 유성우 그네를 타면 온 하늘에 빛줄기가 쫙 뻗었어요. 지우는 깔깔깔 웃음을 멈출 수가 없었어요. '이 놀이터가 세상에서 제일 멋져!' 지우는 팔을 벌리고 우주를 날아다니는 것 같은 기분이었어요. 별나라 놀이터는 지우가 꿈에서도 본 적 없는 최고의 놀이터였어요.",
+        "imageDescription": "Jiwoo floating joyfully on a moonbeam slide in zero gravity, trailing stardust, star friends swinging on meteor swings that leave light streaks across the cosmos, pure joy on everyone's faces"
       },
       {
         "pageNumber": 6,
-        "text": "붉은 화성을 지나고, 목성의 소용돌이 구름도 보였어요. 우주는 정말 넓었어요.",
-        "imageDescription": "Jiwoo's rocket flying past red Mars and then giant Jupiter with its swirling colorful storm clouds, wide-eyed Jiwoo watching"
+        "text": "신나게 놀다가 지우는 구석에서 혼자 울고 있는 작은 별을 발견했어요. '왜 울어?' 지우가 조심스럽게 다가가 물었어요. '나는 너무 작아서 빛이 잘 안 나. 다른 별들처럼 밝게 빛나고 싶은데...' 작은 별이 눈물을 뚝뚝 흘렸어요. 지우의 마음이 따뜻해지면서 작은 별의 손을 꼭 잡아주었어요. '작아도 괜찮아. 너는 분명히 특별한 빛을 가지고 있을 거야!'",
+        "imageDescription": "Jiwoo kneeling beside a tiny crying star in a corner of space, gently holding the star's hand with a warm smile, other stars watching with concern in the background"
       },
       {
         "pageNumber": 7,
-        "text": "은하수 한가운데에 별나라가 나타났어요. 온통 반짝반짝 빛으로 가득한 곳이었어요.",
-        "imageDescription": "A magical star kingdom appearing in the middle of the Milky Way, shimmering with thousands of golden lights and colorful nebulas"
+        "text": "지우의 따뜻한 말에 작은 별의 가슴속에서 무언가가 반짝이기 시작했어요. 처음에는 조그맣던 빛이 점점 커지더니 온 우주가 환해질 만큼 밝게 빛났어요! 별 친구들이 모두 환호성을 질렀어요. '와! 작은 별이 빛나고 있어!' 작은 별은 기쁨의 눈물을 흘리며 지우를 꼭 안았어요. '고마워, 지우야. 네 덕분에 내 빛을 찾았어!' 지우도 눈물이 날 것 같았어요.",
+        "imageDescription": "The small star now glowing brilliantly in golden light, hugging Jiwoo tightly, all star friends cheering with joy, the entire space garden illuminated by the small star's newfound radiance"
       },
       {
         "pageNumber": 8,
-        "text": "반짝반짝 빛나는 별 친구들이 나타났어요. '안녕, 지우야! 우리랑 같이 놀자!'",
-        "imageDescription": "Friendly glowing star characters with cute round faces welcoming Jiwoo, colorful cosmic background, joyful expressions"
+        "text": "별나라 임금님이 나타나셔서 지우에게 특별한 선물을 주셨어요. '지우야, 우리 별나라에 기쁨을 가져다줘서 고마워.' 임금님이 작은 별 조각으로 만든 반짝이는 팔찌를 지우의 손목에 채워주셨어요. '이 팔찌는 네가 친절한 마음을 가지고 있는 한 영원히 빛날 거야.' 지우는 팔찌를 바라보며 미소를 지었어요. 따뜻한 마음이 가장 소중한 선물이라는 걸 알게 되었어요.",
+        "imageDescription": "A magnificent Star King with a shining crown presenting Jiwoo with a sparkling bracelet made of star fragments, all stars gathered around in reverence, golden light surrounding the scene"
       },
       {
         "pageNumber": 9,
-        "text": "별 친구들이 지우의 손을 잡고 우주 정원으로 데려갔어요. 무지개빛 행성 열매가 열려 있었어요.",
-        "imageDescription": "Jiwoo holding hands with star friends walking through a magical space garden with colorful planet-shaped fruits hanging from cosmic vines"
+        "text": "별 친구들과 작별 인사를 나눌 시간이 되었어요. '꼭 다시 와, 지우야!' 작은 별도 이제는 환하게 빛나며 손을 흔들었어요. 지우는 로켓에 올라 창문으로 별 친구들을 바라보았어요. '나도 정말 고마워! 친구들 잊지 않을게!' 로켓이 서서히 움직이기 시작했어요. 별 친구들은 빛을 내어 지우의 로켓 길을 밝혀주었어요.",
+        "imageDescription": "Jiwoo waving goodbye from the rocket window, the small star now glowing bright among all the star friends who form a glowing farewell arc in the cosmic sky, warm and emotional parting"
       },
       {
         "pageNumber": 10,
-        "text": "지우가 행성 열매를 한 개 따서 먹자 입 안에서 퐁퐁 터지며 달콤한 별빛 맛이 났어요.",
-        "imageDescription": "Jiwoo biting into a colorful planet-shaped fruit that bursts with golden starlight sparkles, star friends watching with delight"
+        "text": "로켓이 지구를 향해 달려가는 동안 지우는 손목의 팔찌를 바라보았어요. 팔찌가 별나라에서처럼 반짝반짝 빛나고 있었어요. '친절한 마음이 세상에서 가장 밝은 빛이구나.' 지우는 혼자 중얼거렸어요. 창밖으로 지구가 점점 크게 보이기 시작했어요. 초록색 산과 파란 바다가 보였어요. 집이 가까워질수록 지우의 마음은 따뜻하고 행복했어요.",
+        "imageDescription": "Jiwoo in rocket cockpit looking at his glowing star bracelet, Earth growing larger through the window showing green mountains and blue ocean, warm golden light inside the rocket"
       },
       {
         "pageNumber": 11,
-        "text": "달빛 미끄럼틀을 타니 몸이 둥실둥실 떠올랐어요. 지우는 깔깔깔 웃음을 멈출 수 없었어요.",
-        "imageDescription": "Jiwoo floating happily on a moonbeam slide in zero gravity, laughing with joy, star friends cheering below"
+        "text": "로켓이 사뿐히 지우의 방에 내려앉았어요. 지우는 우주복을 벗고 침대에 누웠어요. 창문 너머 별들이 유난히 밝게 빛났어요. 저 멀리 별나라에서 친구들이 빛을 보내주는 것 같았어요. '오늘 정말 멋진 하루였어.' 지우는 눈이 스르르 감기기 시작했어요. 손목의 팔찌가 부드럽게 빛나면서 지우를 꿈나라로 데려갔어요.",
+        "imageDescription": "Jiwoo lying peacefully in bed with the glowing star bracelet on his wrist, window showing an extra bright starry sky with stars twinkling like waving friends, cozy warm bedroom"
       },
       {
         "pageNumber": 12,
-        "text": "유성우 그네를 타면 온 하늘에 빛 줄기가 쫙 뻗었어요. 정말 신나는 놀이터였어요.",
-        "imageDescription": "Jiwoo swinging on a meteor shower swing that trails streaks of light across the cosmos, streaks painting rainbow colors in the sky"
-      },
-      {
-        "pageNumber": 13,
-        "text": "그때 작은 별 하나가 혼자 구석에서 울고 있었어요. '나는 너무 작아서 빛이 안 나.'",
-        "imageDescription": "A tiny crying star sitting alone in a corner of the space garden, dim and sad, other stars playing in the distance"
-      },
-      {
-        "pageNumber": 14,
-        "text": "지우는 작은 별에게 다가가 손을 꼭 잡아주었어요. '괜찮아, 작아도 충분히 소중해!'",
-        "imageDescription": "Jiwoo kneeling to hold hands with a tiny crying star, offering gentle comfort, looking into the star's eyes with kindness"
-      },
-      {
-        "pageNumber": 15,
-        "text": "지우의 따뜻한 말에 작은 별이 조금씩 빛나기 시작했어요. 별 친구들도 모두 응원했어요.",
-        "imageDescription": "The small star beginning to glow a little brighter, other stars gathering around to cheer, Jiwoo smiling encouragingly"
-      },
-      {
-        "pageNumber": 16,
-        "text": "작은 별이 반짝반짝 빛나기 시작했어요! 별 친구들이 모두 환호성을 질렀어요.",
-        "imageDescription": "The small star now glowing brilliantly, all star friends cheering and celebrating, the entire space garden filling with warm golden light"
-      },
-      {
-        "pageNumber": 17,
-        "text": "'우리가 서로를 응원하면 더 밝게 빛날 수 있어!' 별나라 전체가 더 환하게 빛났어요.",
-        "imageDescription": "The entire star kingdom glowing magnificently bright, all stars and Jiwoo holding hands in a big circle of light, joyful celebration"
-      },
-      {
-        "pageNumber": 18,
-        "text": "별나라 임금님이 나타나셨어요. '지우야, 우리 별나라를 밝혀줘서 고마워!'",
-        "imageDescription": "A magnificent Star King with a shining crown appearing before Jiwoo, bowing gratefully, all stars gathered around reverently"
-      },
-      {
-        "pageNumber": 19,
-        "text": "임금님이 지우에게 작은 별 조각을 선물로 주셨어요. '이 별은 언제나 너를 지켜줄 거야.'",
-        "imageDescription": "The Star King presenting Jiwoo with a tiny glowing star crystal, Jiwoo receiving it with both hands, eyes shining with gratitude"
-      },
-      {
-        "pageNumber": 20,
-        "text": "'지우야, 이제 집에 가야 할 시간이야.' 별 친구들이 손을 흔들었어요.",
-        "imageDescription": "Star friends waving farewell as Jiwoo walks back to his rocket, the small star he helped now glowing and waving too"
-      },
-      {
-        "pageNumber": 21,
-        "text": "지우는 로켓에 올라 작별 인사를 했어요. '꼭 다시 올게!' 로켓이 별나라를 떠났어요.",
-        "imageDescription": "Jiwoo waving goodbye from the rocket hatch as it lifts off, star friends forming a glowing farewell arc in the cosmic sky"
-      },
-      {
-        "pageNumber": 22,
-        "text": "로켓이 지구를 향해 날아갔어요. 지우 손에는 반짝이는 별 조각이 빛나고 있었어요.",
-        "imageDescription": "Jiwoo's rocket flying back toward Earth, Jiwoo holding the star crystal up to the window watching it glow, Earth growing larger"
-      },
-      {
-        "pageNumber": 23,
-        "text": "지우는 집으로 돌아와 이불 속에 들어갔어요. 선물받은 별 조각을 베개 옆에 두었어요.",
-        "imageDescription": "Jiwoo tucked into bed, the star crystal glowing softly on the pillow beside him, creating a warm starry pattern on the ceiling"
-      },
-      {
-        "pageNumber": 24,
-        "text": "창밖 별들이 유난히 밝게 빛나는 것 같았어요. '서로 응원하면 모두 빛날 수 있어.' 지우는 미소를 지으며 잠이 들었답니다.",
-        "imageDescription": "Jiwoo peacefully asleep in his cozy bed, window showing an extra bright starry sky with the star friends twinkling, a gentle smile on his face"
+        "text": "지우는 잠이 들면서도 미소를 잃지 않았어요. 별나라 친구들, 용기를 찾은 작은 별, 그리고 따뜻한 마음이 얼마나 소중한지 배웠어요. '친절하게 대해주면 누구든 빛날 수 있어.' 지우는 꿈속에서도 별 친구들과 함께 우주를 달렸어요. 그리고 다음에 또 별나라에 가기로 마음속으로 약속했답니다. 지우의 이야기는 이렇게 아름답게 끝났지만, 새로운 모험은 언제나 시작될 수 있답니다!",
+        "imageDescription": "Jiwoo sleeping peacefully with a smile, the star bracelet glowing softly, window showing stars spelling out a heart shape in the night sky, magical and cozy atmosphere"
       }
     ]
   },
@@ -135,123 +75,63 @@
     "pages": [
       {
         "pageNumber": 1,
-        "text": "수아는 바닷가에서 예쁜 조개를 줍고 있었어요.",
-        "imageDescription": "A cute 4-year-old Korean girl Sua picking up colorful seashells on a sunny beach, gentle waves, warm golden sunlight"
+        "text": "수아는 바닷가에서 예쁜 조개를 줍고 있었어요. 파도가 찰랑찰랑 발에 닿을 때마다 간지러워서 깔깔 웃음이 났어요. 그런데 갑자기 조개 하나에서 작은 빛이 반짝였어요. '안녕? 나는 마법 조개야. 바닷속 세계로 데려다줄게!' 수아는 깜짝 놀랐지만 용감하게 말했어요. '좋아, 데려가줘!' 조개를 꼭 쥐자 몸이 스르르 바닷속으로 들어갔어요.",
+        "imageDescription": "A cute 4-year-old Korean girl Sua on a sunny beach picking up a glowing magical shell, waves gently touching her feet, expression changing from surprise to excitement"
       },
       {
         "pageNumber": 2,
-        "text": "그런데 조개에서 작은 빛이 반짝였어요. '안녕? 나는 마법 조개야!'",
-        "imageDescription": "Sua holding a glowing magical shell that sparkles with pink and gold light, eyes wide with wonder on the beach"
+        "text": "신기하게도 바닷속에서 숨을 쉴 수 있었어요! 수아 주변으로 알록달록한 물고기들이 빙글빙글 돌며 인사했어요. 산호초는 형형색색으로 빛났고, 바다는 마치 큰 수족관 같았어요. '이렇게 예쁜 곳이 있었구나!' 수아는 두 팔을 벌리고 물속을 헤엄쳐 보았어요. 꼬마 문어 오뚝이가 달려와 인사했어요. '안녕! 나는 오뚝이야. 바닷속을 안내해줄게!'",
+        "imageDescription": "Sua floating underwater surrounded by colorful tropical fish in a magical coral reef, a small friendly purple octopus Ottuki waving hello, magical air bubble around Sua's head, vivid colors"
       },
       {
         "pageNumber": 3,
-        "text": "'바닷속 세계로 데려다줄게!' 수아가 조개를 꼭 쥐자 바닷속으로 스르르 들어갔어요.",
-        "imageDescription": "Sua gently sinking into the crystal clear ocean, surrounded by shimmering bubbles, holding the glowing magical shell tightly"
+        "text": "오뚝이와 수아는 손을 잡고 산호 미로를 탐험했어요. 형광빛 해파리들이 우산처럼 둥실둥실 춤을 추고 있었어요. 빨간 불가사리가 '안녕!' 하고 팔을 흔들었어요. 거북이 할아버지는 천천히 헤엄치며 '어서 오렴, 수아야'라고 말했어요. 수아는 이 바닷속 친구들이 너무 좋았어요. '이 친구들과 영원히 함께 살고 싶어!' 수아의 눈이 반짝반짝 빛났어요.",
+        "imageDescription": "Sua and octopus Ottuki exploring a colorful coral maze together, bioluminescent jellyfish dancing above them, red starfish waving, elderly sea turtle swimming nearby, magical underwater world"
       },
       {
         "pageNumber": 4,
-        "text": "신기하게도 숨을 쉴 수 있었어요. 알록달록한 물고기들이 수아 주변을 빙글빙글 돌았어요.",
-        "imageDescription": "Sua floating underwater with a magical air bubble, surrounded by colorful tropical fish swimming in joyful swirling patterns"
+        "text": "산호 미로를 지나니 반짝이는 진주로 만든 궁전이 나타났어요. 문이 천천히 열리더니 바다의 여왕님이 나오셨어요. 여왕님은 산호 왕관을 쓰고 긴 초록 머리카락을 가진 아름다운 분이었어요. '수아야, 우리 바다에 와줘서 고마워. 소원을 하나 들어줄게!' 수아는 어떤 소원을 빌까 고민했어요. 왕궁 안에서는 아름다운 음악이 흘러나오고 있었어요.",
+        "imageDescription": "A majestic pearl palace with grand doors opening, revealing a beautiful Sea Queen with coral crown and flowing green hair, Sua and Ottuki looking up in awe, palace glowing with soft bioluminescent light"
       },
       {
         "pageNumber": 5,
-        "text": "꼬마 문어 오뚝이가 다가와 인사했어요. '나는 오뚝이야! 같이 놀자!'",
-        "imageDescription": "A small friendly purple octopus Ottuki waving a tentacle hello at Sua, smiling with big round eyes in colorful coral reef"
+        "text": "그때 아기 거북이 한 마리가 낚싯줄에 걸려 힘들게 버둥거리고 있었어요. '저 거북이를 도와주세요!' 수아는 소원을 빌었어요. 여왕님이 손을 흔들자 낚싯줄이 사르르 녹아 없어졌어요. 자유로워진 아기 거북이가 수아에게 달려와 꼭 안았어요. '고마워, 수아야! 네가 나를 구해줬어.' 수아는 자신의 소원이 아닌 다른 친구를 위해 소원을 빈 자신이 자랑스러웠어요.",
+        "imageDescription": "A baby sea turtle tangled in a fishing line being freed by the Sea Queen's magic that dissolves the line into sparkles, Sua watching with relief, turtle swimming free toward Sua gratefully"
       },
       {
         "pageNumber": 6,
-        "text": "수아와 오뚝이는 손을 잡고 예쁜 산호 숲 속으로 들어갔어요.",
-        "imageDescription": "Sua holding tentacles with Ottuki heading into a magnificent glowing coral forest with colorful sea anemones and starfish"
+        "text": "아기 거북이가 고마움의 표시로 수아를 넓은 바다로 안내해 주었어요. 거대한 파란 고래가 나타나 수아를 등에 태워주었어요. 고래 등에 올라타니 바다 전체가 한눈에 보였어요! 돌고래들이 점프를 하며 수아를 응원했어요. 수아는 팔을 벌리고 바람을 맞으며 소리쳤어요. '세상에서 제일 신나는 일이야!' 황금빛 햇살이 파도 위에 반짝였어요.",
+        "imageDescription": "Sua riding on the back of a gentle blue whale above the ocean surface, dolphins leaping joyfully around them, golden sunset light reflecting on the waves, arms spread wide with pure joy"
       },
       {
         "pageNumber": 7,
-        "text": "형광빛 해파리들이 우산처럼 춤을 추고 있었어요. 온통 무지개빛이 펼쳐졌어요.",
-        "imageDescription": "Beautiful bioluminescent jellyfish dancing gracefully like colorful umbrellas, rainbow light reflecting off the coral walls"
+        "text": "해가 기울어지기 시작했어요. 오뚝이가 수아에게 말했어요. '이제 집에 갈 시간이야, 수아야.' 수아는 조금 슬펐지만 고개를 끄덕였어요. 바다 친구들이 모두 모여 작별 인사를 했어요. 여왕님이 수아에게 진주 목걸이를 선물로 주셨어요. '이 목걸이를 보면 우리를 기억해줘.' 수아는 목걸이를 받아들고 눈물이 살짝 고였어요.",
+        "imageDescription": "All ocean friends gathered to say farewell to Sua, Sea Queen placing a pearl necklace around Sua's neck, Ottuki waving tentacles, baby turtle nuzzling Sua's hand, warm sunset colors underwater"
       },
       {
         "pageNumber": 8,
-        "text": "빨간 불가사리가 인사했어요. '안녕! 나는 별이야. 길을 안내해줄게!'",
-        "imageDescription": "A cheerful red starfish waving at Sua and Ottuki, pointing the way through the colorful coral maze, friendly smile"
+        "text": "오뚝이와 물고기 친구들이 수아를 바닷가까지 에스코트해 주었어요. 수아는 발이 모래사장에 닿자 뒤를 돌아보았어요. 파도가 찰랑찰랑 인사하는 것 같았어요. 수아는 손을 흔들며 작별 인사를 했어요. '꼭 다시 올게, 친구들아!' 진주 목걸이가 반짝이며 빛났어요. 수아는 이날의 모험을 절대 잊지 않겠다고 마음속으로 약속했어요. 바닷속에는 언제나 친구들이 기다리고 있을 거예요.",
+        "imageDescription": "Sua standing on the beach at golden hour waving goodbye to the ocean, waves gently lapping like waving hands, pearl necklace glowing on her neck, smile full of warmth and happy memories"
       },
       {
         "pageNumber": 9,
-        "text": "산호 미로를 지나니 커다란 조개궁전이 나타났어요. 진주로 만든 문이 천천히 열렸어요.",
-        "imageDescription": "A grand palace made of giant clam shells and gleaming pearls opening its doors, Sua and Ottuki looking up in awe"
+        "text": "집으로 돌아온 수아는 엄마에게 오늘의 모험을 이야기해 주었어요. '엄마, 바닷속에 친구들이 있어요! 거북이도 있고, 문어 오뚝이도 있어요!' 엄마는 미소를 지으며 수아를 꼭 안아주었어요. '우리 수아가 정말 용감한 모험가구나!' 수아는 엄마 품에 안겨 오늘 하루를 떠올렸어요. 목걸이를 만질 때마다 바닷속 친구들이 떠올랐어요.",
+        "imageDescription": "Sua excitedly telling her mother about the ocean adventure at home, mother hugging her warmly and listening with a smile, pearl necklace visible around Sua's neck, cozy home setting"
       },
       {
         "pageNumber": 10,
-        "text": "바다의 여왕님은 부드러운 목소리로 말했어요. '수아야, 와줘서 고마워!'",
-        "imageDescription": "A gentle and beautiful Sea Queen with a flowing coral crown smiling warmly at Sua, the pearl palace shimmering with soft light"
+        "text": "수아는 잠자리에 들면서 오늘 배운 것을 생각했어요. '친절함은 가장 좋은 소원이야.' 아기 거북이를 위해 소원을 빌었을 때 자신도 더 행복했어요. 진주 목걸이가 침대 옆 테이블에서 부드럽게 빛났어요. 수아는 눈을 감으면서 오뚝이와 거북이 친구들이 지금도 바닷속에서 행복하게 지내고 있을 거라고 생각했어요. 그 생각만으로도 마음이 포근해졌어요.",
+        "imageDescription": "Sua peacefully in bed with eyes closed and a gentle smile, pearl necklace glowing softly on the bedside table, moonlight streaming through the window casting a peaceful blue glow"
       },
       {
         "pageNumber": 11,
-        "text": "'소원을 하나 들어줄게!' 수아는 잠시 생각했어요. 무슨 소원을 빌까요?",
-        "imageDescription": "Sua thinking carefully with a finger on her chin, the Sea Queen waiting patiently, Ottuki watching with curiosity"
+        "text": "다음날 아침, 수아는 바다가 보이는 창문 앞에 앉았어요. 파도 소리가 '수아야, 잘 잤어?' 하고 인사하는 것 같았어요. 수아는 목걸이를 만지며 미소를 지었어요. 마음속에 바닷속 친구들이 살아있는 것 같았어요. '오늘도 착하게 지내야지. 그래야 친구들에게 부끄럽지 않아!' 수아는 씩씩하게 일어나 새 하루를 시작했어요.",
+        "imageDescription": "Sua sitting by a window in the morning, touching her pearl necklace and smiling at the ocean view outside, golden morning light, determined and happy expression on her face"
       },
       {
         "pageNumber": 12,
-        "text": "그때 아기 거북이가 그물에 걸려 울고 있었어요. 수아 마음이 아팠어요.",
-        "imageDescription": "A small baby sea turtle tangled in a discarded fishing net, tears in its eyes, Sua watching with concern and empathy"
-      },
-      {
-        "pageNumber": 13,
-        "text": "수아는 소원을 빌었어요. '여왕님, 거북이를 도와주세요!'",
-        "imageDescription": "Sua turning to the Sea Queen with determined eyes, pointing at the baby turtle, Ottuki nodding in agreement"
-      },
-      {
-        "pageNumber": 14,
-        "text": "여왕님이 손을 흔들자 그물이 사르르 녹아 없어졌어요. 거북이가 자유로워졌어요!",
-        "imageDescription": "The Sea Queen waving her hand as the fishing net dissolves into sparkles, freeing the baby sea turtle, golden light everywhere"
-      },
-      {
-        "pageNumber": 15,
-        "text": "아기 거북이가 고마워서 수아를 꼭 안았어요. 수아의 마음이 따뜻해졌어요.",
-        "imageDescription": "The baby sea turtle hugging Sua with its flippers, both smiling, warm golden light surrounding them in the pearl palace"
-      },
-      {
-        "pageNumber": 16,
-        "text": "'이제 어디로 가야 할지 알아!' 거북이는 기쁘게 넓은 바다를 향해 헤엄쳐 갔어요.",
-        "imageDescription": "The baby sea turtle swimming off powerfully into the vast open ocean, rays of light filtering down from above, waving a flipper"
-      },
-      {
-        "pageNumber": 17,
-        "text": "여왕님이 수아에게 진주 목걸이를 선물해 주셨어요. '착한 수아에게 줄게.'",
-        "imageDescription": "The Sea Queen carefully placing a beautiful glowing pearl necklace around Sua's neck, Sua smiling gratefully"
-      },
-      {
-        "pageNumber": 18,
-        "text": "수아와 오뚝이는 바닷속 곳곳을 탐험했어요. 형광 물고기들과 숨바꼭질도 했어요.",
-        "imageDescription": "Sua and Ottuki playing hide and seek with glowing fish among colorful coral pillars, laughter and bubbles filling the water"
-      },
-      {
-        "pageNumber": 19,
-        "text": "고래가 나타나 수아를 등에 태워주었어요. 바다 위로 훌쩍 뛰어올랐어요!",
-        "imageDescription": "A friendly blue whale breaching the ocean surface with Sua riding on its back, water spraying everywhere, sheer joy on Sua's face"
-      },
-      {
-        "pageNumber": 20,
-        "text": "하늘과 바다가 만나는 곳에서 돌고래들이 춤을 췄어요. 정말 아름다운 광경이었어요.",
-        "imageDescription": "Dolphins leaping gracefully where sky meets ocean, Sua watching in wonder from the whale's back, golden sunset light"
-      },
-      {
-        "pageNumber": 21,
-        "text": "해가 기울기 시작했어요. 오뚝이가 말했어요. '이제 집에 갈 시간이야, 수아야.'",
-        "imageDescription": "The sun beginning to set, casting pink and orange reflections on the water, Ottuki pointing toward the shore gently"
-      },
-      {
-        "pageNumber": 22,
-        "text": "오뚝이와 물고기 친구들이 수아를 바닷가까지 데려다주었어요. '또 놀러 와!'",
-        "imageDescription": "Sua being escorted to the surface by Ottuki and a colorful school of fish, all waving goodbye near the shimmering water surface"
-      },
-      {
-        "pageNumber": 23,
-        "text": "수아는 바닷가에 서서 파도를 바라보았어요. 파도가 찰랑찰랑 인사하는 것 같았어요.",
-        "imageDescription": "Sua standing on the beach at golden hour, waves gently lapping at her feet, clutching the magical shell and pearl necklace"
-      },
-      {
-        "pageNumber": 24,
-        "text": "'나도 수아처럼 친절한 사람이 될 거야.' 수아는 따뜻한 마음을 가득 안고 집으로 돌아갔답니다.",
-        "imageDescription": "Sua walking home along the beach at sunset, smiling peacefully, the ocean glittering behind her, seagulls flying in the pink sky"
+        "text": "수아의 바닷속 모험은 끝났지만, 그 마음속의 친구들은 영원히 함께할 거예요. 친절한 마음으로 친구를 도울 때 가장 행복하다는 것을 수아는 배웠어요. 바다를 볼 때마다, 파도 소리를 들을 때마다 수아는 바닷속 친구들을 생각할 거예요. 그리고 누군가 힘들 때 용기 내어 도와줄 거예요. 수아는 세상에서 제일 용감하고 친절한 아이가 되었답니다!",
+        "imageDescription": "Sua at the beach looking at the ocean with a confident and warm smile, pearl necklace gleaming, sea breeze in her hair, ocean sparkles as if friends are waving from beneath, beautiful sunny day"
       }
     ]
   },
@@ -263,123 +143,63 @@
     "pages": [
       {
         "pageNumber": 1,
-        "text": "민준이는 숲속에서 산책을 하다가 작은 오두막집을 발견했어요.",
-        "imageDescription": "A curious 6-year-old Korean boy Minjun discovering a cozy magical forest cottage with a warm light glowing inside, tall trees around"
+        "text": "민준이는 엄마와 함께 숲속 산책을 하다가 작고 아늑한 오두막집을 발견했어요. 오두막집 안에서 맛있는 냄새가 솔솔 흘러나오고 있었어요. 문을 살짝 열어보니 냄비와 프라이팬이 가득했고, 벽에는 커다란 레시피 책이 걸려 있었어요. 책이 저절로 펼쳐지더니 글씨가 빛났어요. '민준아, 이 마법 주방의 주인은 바로 너야!' 민준이는 놀라서 입을 다물지 못했어요.",
+        "imageDescription": "A curious 6-year-old Korean boy Minjun discovering a cozy magical forest cottage, a glowing recipe book opening by itself on the wall, warm firelight, pots and pans hanging everywhere"
       },
       {
         "pageNumber": 2,
-        "text": "문을 열자 냄비와 프라이팬이 가득했어요. 벽에는 마법 레시피 책이 걸려 있었어요.",
-        "imageDescription": "Inside the magical cottage, walls lined with copper pots and pans, a glowing recipe book hanging on the wall, fireplace crackling"
+        "text": "레시피 책에는 '별빛 수프 만들기'라고 적혀 있었어요. '달빛 버섯, 무지개 당근, 반짝이 소금을 넣으세요!' 민준이가 레시피를 읽자 숲 친구들이 재료를 들고 달려왔어요. 토끼는 달빛 버섯을, 다람쥐는 무지개 당근을, 부엉이는 반짝이 소금을 들고 왔어요. '민준아, 우리가 도와줄게!' 민준이는 기뻐서 앞치마를 두르고 요리를 시작했어요.",
+        "imageDescription": "Minjun wearing a tiny chef's apron reading a glowing recipe book, a friendly rabbit carrying moonlit mushrooms, squirrel with rainbow carrots, owl with sparkling salt all rushing to help"
       },
       {
         "pageNumber": 3,
-        "text": "레시피 책이 저절로 펼쳐졌어요. '별빛 수프 만들기: 달빛 버섯, 무지개 당근을 넣으세요!'",
-        "imageDescription": "A magical recipe book opening by itself, glowing text appearing on the pages showing a starlight soup recipe with illustrated ingredients"
+        "text": "민준이는 정성껏 재료를 손질했어요. 달빛 버섯을 썰자 은빛 향기가 퍼졌고, 무지개 당근을 자를 때마다 색이 변했어요. '신기하다!' 민준이가 감탄하며 재료를 냄비에 넣었어요. 반짝이 소금을 살짝 뿌리자 냄비에서 별빛이 쏟아졌어요! 온 부엌이 환하게 빛나고 달콤한 냄새가 가득 찼어요. 숲 친구들도 코를 킁킁거리며 군침을 삼켰어요.",
+        "imageDescription": "Minjun carefully slicing moonlit mushrooms that release silver sparkles, rainbow carrots changing colors, pot filled with ingredients as gold starlight pours out, kitchen glowing magically"
       },
       {
         "pageNumber": 4,
-        "text": "숲 친구들인 토끼, 다람쥐, 부엉이가 재료를 들고 달려왔어요.",
-        "imageDescription": "A friendly rabbit, squirrel, and owl running toward Minjun carrying moonlit mushrooms, rainbow carrots, and sparkling salt"
+        "text": "달콤한 냄새가 숲 전체에 퍼지자 더 많은 친구들이 몰려왔어요. 사슴, 곰, 여우, 토끼들이 줄을 서서 기다렸어요. 민준이는 신이 나서 수프를 모두에게 나눠주었어요. 수프를 마시자 아픈 사슴의 다리가 나았어요! 피곤한 곰도 원기를 되찾았어요! '이 수프에는 진짜 마법이 있어요!' 동물 친구들이 놀라며 박수를 쳤어요. 민준이는 뿌듯함에 얼굴이 빨개졌어요.",
+        "imageDescription": "Minjun serving magical starlight soup to a long line of forest animals, a deer's injured leg healing with golden sparkles, a tired bear becoming energetic, all animals looking healthy and grateful"
       },
       {
         "pageNumber": 5,
-        "text": "민준이는 달빛 버섯을 손질했어요. 썰자 은빛 향기가 퍼졌어요.",
-        "imageDescription": "Minjun carefully slicing moonlit mushrooms on a wooden cutting board, silver sparkly fragrance rising from the cut pieces"
+        "text": "레시피 책이 다시 펼쳐지더니 새 페이지가 나타났어요. '무지개 케이크: 사랑을 듬뿍 담아 만드세요. 혼자 만들면 절반의 마법만 나온답니다!' 민준이는 친구들을 바라보며 말했어요. '우리 같이 케이크 만들자!' 모두가 기뻐서 손을 들었어요. 토끼는 계란을 깨고, 다람쥐는 반죽을 저었어요. 부엉이는 오븐 온도를 맞춰주었어요. 협동하니 훨씬 빠르고 재미있었어요!",
+        "imageDescription": "All the forest animals working together to bake a rainbow cake, rabbit cracking eggs, squirrel stirring batter, owl adjusting the oven, Minjun directing with a wooden spoon, teamwork and happiness"
       },
       {
         "pageNumber": 6,
-        "text": "무지개 당근은 자를 때마다 색이 변했어요. 정말 신기한 재료들이었어요.",
-        "imageDescription": "Rainbow carrots changing colors with each cut, showing red then orange then yellow then green, Minjun watching with delight"
+        "text": "오븐에서 나온 케이크에는 진짜 무지개가 그려져 있었어요! 케이크를 자르자 안에서 형형색색의 빛이 쏟아져 나왔어요. '우와!' 동물 친구들이 모두 입을 다물지 못했어요. '이게 바로 함께 만든 마법이야!' 레시피 책이 빛나며 말했어요. 민준이는 케이크 한 조각씩 나누어 주었어요. 모두가 케이크를 먹으며 배꼽을 잡고 웃었어요. 이렇게 행복한 파티는 처음이었어요!",
+        "imageDescription": "A spectacular rainbow cake being cut open revealing colorful light streaming out, all forest animals gasping in amazement and joy, festive party atmosphere in the magical cottage"
       },
       {
         "pageNumber": 7,
-        "text": "반짝이 소금을 살짝 뿌리자 냄비 안에서 별빛이 쏟아졌어요!",
-        "imageDescription": "Minjun sprinkling sparkling salt into the pot, golden starlight shooting up from the pot, the kitchen filling with warm golden glow"
+        "text": "파티가 끝나갈 무렵, 레시피 책이 마지막 페이지를 펼쳤어요. '요리의 진짜 재료는 사랑과 나눔이란다.' 민준이는 그 글을 읽으며 고개를 끄덕였어요. 오늘 하루 동안 함께 요리하고 나누면서 진짜 행복을 느꼈거든요. '내가 만든 음식으로 친구들이 행복해지는 게 제일 좋아.' 민준이가 말했어요. 동물 친구들이 민준이를 둘러싸고 꼭 안아주었어요.",
+        "imageDescription": "All forest animals hugging Minjun warmly in the magical kitchen, the recipe book glowing with the final message about love and sharing, warm firelight, emotional and heartwarming moment"
       },
       {
         "pageNumber": 8,
-        "text": "민준이가 재료를 넣고 휘휘 저었어요. 온 숲에 달콤한 냄새가 퍼졌어요.",
-        "imageDescription": "Minjun stirring a magical bubbling pot with a wooden spoon, the wonderful aroma drifting through the cottage windows into the forest"
+        "text": "집으로 돌아가는 길, 민준이는 레시피 책을 들고 나왔어요. 책이 마음속으로 들어온 것 같았어요. 엄마한테 달려가 오늘 있었던 일을 신나게 이야기했어요. '엄마, 나 오늘 마법 요리 배웠어요! 내일은 엄마한테 수프 만들어 줄게요!' 엄마가 웃으며 민준이를 안아주었어요. 민준이의 마음속에는 이미 다음 요리 계획이 가득했어요.",
+        "imageDescription": "Minjun running home through the forest path carrying a glowing recipe book, sunset light through the trees, excited expression, mother waiting at the door with open arms"
       },
       {
         "pageNumber": 9,
-        "text": "더 많은 숲 친구들이 냄새를 맡고 몰려왔어요. 사슴, 곰, 여우도 왔어요.",
-        "imageDescription": "Deer, bears, foxes, and rabbits gathering around the cottage door, noses sniffing the wonderful soup smell, eager and hopeful"
+        "text": "다음날 아침, 민준이는 일찍 일어나 엄마를 위한 수프를 만들기 시작했어요. 어제 배운 대로 재료를 하나씩 정성껏 손질했어요. 물론 달빛 버섯은 없었지만, 엄마를 생각하는 마음을 듬뿍 담았어요. 수프가 완성되자 향긋한 냄새가 집안 가득 퍼졌어요. '엄마, 수프 다 됐어요!' 민준이가 두 손으로 그릇을 조심조심 들고 갔어요.",
+        "imageDescription": "Minjun in a small apron carefully cooking soup in the home kitchen early morning, concentrating hard, warm steam rising from the pot, sunlight streaming through the kitchen window"
       },
       {
         "pageNumber": 10,
-        "text": "민준이는 친구들에게 수프를 나눠주었어요. 모두 행복하게 먹었어요.",
-        "imageDescription": "Minjun ladling magical starlight soup into wooden bowls for all the animals, everyone seated around a big outdoor table happily eating"
+        "text": "엄마가 수프를 한 모금 마시더니 눈이 동그래졌어요. '세상에, 이게 민준이가 만든 거야? 정말 맛있는걸!' 엄마가 눈물을 글썽이며 민준이를 꼭 안아주었어요. '사랑을 담아 만들었거든요!' 민준이가 자랑스럽게 말했어요. 그 말에 엄마는 더 크게 웃었어요. 민준이는 최고의 요리사가 된 것 같은 기분이었어요. 마법 없이도 마음을 담은 요리는 충분히 마법 같았어요.",
+        "imageDescription": "Mother with teary happy eyes tasting Minjun's soup, pulling him into a warm hug, Minjun beaming with pride and joy, cozy kitchen with morning sunlight, love visible in every detail"
       },
       {
         "pageNumber": 11,
-        "text": "수프를 마시자 아픈 사슴의 다리가 나았어요. 수프에는 진짜 마법이 있었어요!",
-        "imageDescription": "A sick deer's injured leg healing with golden sparkles after drinking the soup, the deer looking shocked then joyful and jumping up"
+        "text": "그날부터 민준이는 틈날 때마다 요리 연습을 했어요. 친구들이 아플 때, 할머니가 오실 때, 비가 오는 날에도 요리를 만들어 나눠주었어요. 숲속 동물 친구들도 가끔 찾아와 함께 요리했어요. 요리할 때마다 마법 레시피 책의 말이 떠올랐어요. '사랑과 나눔이 진짜 재료야.' 민준이는 이 말을 절대 잊지 않았어요.",
+        "imageDescription": "Minjun cooking with friends and family in various settings, sharing food with neighbors, forest animal friends visiting the home kitchen, warmth and generosity visible throughout"
       },
       {
         "pageNumber": 12,
-        "text": "피곤한 곰도 원기를 되찾았어요. '정말 맛있어!' 친구들이 기뻐했어요.",
-        "imageDescription": "A tired bear standing up energetically after eating soup, looking strong and happy, surrounded by celebrating forest animals"
-      },
-      {
-        "pageNumber": 13,
-        "text": "레시피 책이 다시 펼쳐지며 새 페이지를 보여주었어요. '무지개 케이크를 만드세요!'",
-        "imageDescription": "The glowing recipe book opening to a new page showing a magnificent rainbow cake recipe, all animals gathering to look with excitement"
-      },
-      {
-        "pageNumber": 14,
-        "text": "'사랑을 듬뿍 담아 만드세요.' 민준이는 친구들과 함께 케이크를 만들기로 했어요.",
-        "imageDescription": "Minjun and woodland animals gathering around the kitchen table with baking supplies, everyone ready to work together happily"
-      },
-      {
-        "pageNumber": 15,
-        "text": "토끼는 계란을 깨고, 다람쥐는 반죽을 저었어요. 부엉이는 오븐 온도를 맞췄어요.",
-        "imageDescription": "Rabbit cracking eggs, squirrel stirring batter, owl carefully adjusting the magical oven temperature, all working in harmony"
-      },
-      {
-        "pageNumber": 16,
-        "text": "모두가 힘을 합쳐 케이크를 만들었어요. 케이크가 구워지자 온 숲이 달콤했어요.",
-        "imageDescription": "The cottage windows glowing warmly as the cake bakes, sweet aroma drifting through the entire forest, animals waiting eagerly outside"
-      },
-      {
-        "pageNumber": 17,
-        "text": "오븐에서 나온 케이크에는 진짜 무지개가 그려져 있었어요. 모두 와! 탄성을 질렀어요.",
-        "imageDescription": "A spectacular rainbow-decorated cake coming out of the oven, woodland animals gasping in amazement and delight at its beauty"
-      },
-      {
-        "pageNumber": 18,
-        "text": "케이크를 자르자 안에서 형형색색의 빛이 쏟아졌어요. 정말 마법 같았어요!",
-        "imageDescription": "A magnificent rainbow cake being sliced open to reveal layers of colorful light pouring out like a treasure, everyone cheering"
-      },
-      {
-        "pageNumber": 19,
-        "text": "모두 함께 케이크를 나눠 먹었어요. 한 조각 먹자 마음이 따뜻해졌어요.",
-        "imageDescription": "All the forest animals and Minjun eating rainbow cake together around a festive table, warm smiles and happy expressions everywhere"
-      },
-      {
-        "pageNumber": 20,
-        "text": "'민준아, 네가 만든 요리 최고야!' 친구들이 박수를 쳤어요.",
-        "imageDescription": "Woodland animals clapping their paws and hooves enthusiastically for Minjun, Minjun smiling shyly and bowing with gratitude"
-      },
-      {
-        "pageNumber": 21,
-        "text": "'여러분이 맛있게 먹어줘서 제가 더 행복해요!' 숲에는 웃음소리가 가득했답니다.",
-        "imageDescription": "Minjun saying thank you with hands on heart, all animals laughing joyfully together in the golden forest light"
-      },
-      {
-        "pageNumber": 22,
-        "text": "레시피 책이 마지막으로 한 번 반짝이며 웃는 얼굴을 보여주었어요.",
-        "imageDescription": "The magical recipe book glowing one final time, showing a smiling face drawn in golden ink, winking at Minjun"
-      },
-      {
-        "pageNumber": 23,
-        "text": "민준이는 오두막집을 나서며 뒤를 돌아보았어요. 레시피 책이 스스로 덮히며 반짝 빛났어요.",
-        "imageDescription": "Minjun walking away from the glowing cottage as the magical recipe book closes and sparkles one last time in the window"
-      },
-      {
-        "pageNumber": 24,
-        "text": "'요리는 마음을 나누는 것이구나.' 민준이는 따뜻한 마음을 품고 집으로 돌아갔답니다.",
-        "imageDescription": "Minjun walking home along a sunny forest path, golden light through the trees, a warm smile, forest animals waving goodbye"
+        "text": "민준이의 꿈은 세상 모든 사람이 맛있는 것을 먹고 행복해지는 거예요. 언젠가는 숲속 오두막집 같은 레스토랑을 열어서 모두에게 마법 같은 요리를 만들어 줄 거예요. 사랑을 담은 요리는 어떤 마법보다 강하다는 걸 민준이는 알고 있어요. 오늘도 민준이는 앞치마를 두르고 요리를 시작해요. '자, 오늘은 어떤 행복한 요리를 만들어볼까?' 민준이의 모험은 매일 계속된답니다!",
+        "imageDescription": "Minjun in a chef's apron looking confidently at the camera with a big warm smile, magical cottage visible in the background, forest friends watching proudly, golden light and sense of bright future"
       }
     ]
   }

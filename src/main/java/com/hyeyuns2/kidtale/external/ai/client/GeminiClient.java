@@ -37,38 +37,27 @@ public class GeminiClient {
             - %s가 주인공이어야 합니다
             - %d살에게 적합한 수준의 내용
             - 긍정적이고 교훈적인 결말
-            - 반드시 24페이지로 구성하세요 (실제 그림책 분량)
-            - 각 페이지는 1~2문장으로 짧고 자연스럽게 이어지는 이야기
-            - 이야기 흐름: 도입(1~4p) → 전개(5~16p) → 절정(17~20p) → 해결/마무리(21~24p)
+            - 반드시 12장면으로 구성하세요 (책에서 한 펼침 = 왼쪽 그림 + 오른쪽 글)
+            - 각 장면의 text는 5~7문장으로 풍부하게 써주세요. 장면 묘사, 인물의 감정, 대화를 자연스럽게 섞어주세요
+            - 이야기 흐름: 도입(1~2장면) → 전개(3~9장면) → 절정(10~11장면) → 해결/마무리(12장면)
+            - imageDescription은 해당 장면의 핵심 그림을 영어로 구체적으로 묘사하세요 (주인공 외모, 행동, 배경, 분위기 포함, 50단어 이내)
 
             반드시 아래 JSON 형식으로만 출력하세요 (다른 텍스트 없이):
             {
               "title": "동화 제목",
               "pages": [
-                {"pageNumber": 1, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 2, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 3, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 4, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 5, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 6, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 7, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 8, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 9, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 10, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 11, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 12, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 13, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 14, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 15, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 16, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 17, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 18, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 19, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 20, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 21, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 22, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 23, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 24, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"}
+                {"pageNumber": 1, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 2, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 3, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 4, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 5, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 6, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 7, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 8, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 9, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 10, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 11, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"},
+                {"pageNumber": 12, "text": "장면 내용 (5~7문장)", "imageDescription": "scene description in English within 50 words"}
               ]
             }
             """;
