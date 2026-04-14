@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 인증 없이 접근 가능
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/stories/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/stories").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/books").permitAll()

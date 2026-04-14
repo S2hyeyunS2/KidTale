@@ -10,23 +10,29 @@ import { createBook } from '../api/book'
 
 // ─── 이미지 URL ────────────────────────────────────────────────────────────────
 
-function buildIllustrationUrls(imageDescription, pageNum, { width = 800, height = 800 } = {}) {
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+
+function buildIllustrationUrls(imageDescription, pageNum, { width = 512, height = 512 } = {}) {
   const base = imageDescription
-    ? `children storybook illustration, ${imageDescription}, soft watercolor, cute, vibrant`
-    : `children storybook watercolor illustration scene ${pageNum}`
+    ? `children book illustration, ${imageDescription}, cute, colorful`
+    : `children storybook scene ${pageNum}, cute colorful`
+
   const encoded = encodeURIComponent(base)
-  const fallbackEncoded = encodeURIComponent(`cute children storybook scene ${pageNum} colorful watercolor`)
+  const simpleEncoded = encodeURIComponent(`children storybook illustration scene ${pageNum} colorful cute`)
 
   return [
-    `https://image.pollinations.ai/prompt/${encoded}?width=${width}&height=${height}&seed=${pageNum}&model=flux&nologo=true`,
-    `https://image.pollinations.ai/prompt/${encoded}?width=${width}&height=${height}&seed=${pageNum + 101}&model=flux&nologo=true`,
-    `https://image.pollinations.ai/prompt/${fallbackEncoded}?width=${width}&height=${height}&seed=${pageNum + 202}&model=flux&nologo=true`,
+    // 1순위: 백엔드 프록시 (서버에서 Pollinations.ai 호출)
+    `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum}&width=${width}&height=${height}`,
+    // 2순위: 다른 seed로 재시도
+    `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum + 50}&width=${width}&height=${height}`,
+    // 3순위: 단순 프롬프트
+    `${API_BASE}/api/images/generate?prompt=${simpleEncoded}&seed=${pageNum}&width=${width}&height=${height}`,
   ]
 }
 
 // ─── StoryImage 컴포넌트 ───────────────────────────────────────────────────────
 
-const TIMEOUT_MS = 90_000   // 90초 — Pollinations.ai 생성 시간 대응
+const TIMEOUT_MS = 30_000   // turbo 모델은 5~15초면 충분
 
 function StoryImage({ sources, alt, className, fallbackIndex = 0 }) {
   const [status, setStatus] = useState('loading')
@@ -80,7 +86,7 @@ function StoryImage({ sources, alt, className, fallbackIndex = 0 }) {
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-rose-50 to-amber-50">
               <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-3" />
               <p className="text-xs text-gray-400">그림 생성 중...</p>
-              <p className="text-xs text-gray-300 mt-1">최대 90초 소요될 수 있어요</p>
+              <p className="text-xs text-gray-300 mt-1">잠시만 기다려주세요</p>
             </div>
         )}
 

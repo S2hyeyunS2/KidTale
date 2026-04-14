@@ -211,10 +211,12 @@ export default function Home() {
 }
 
 // 샘플 동화 커버 이미지 — 로드 실패 시 이모지 fallback
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+
 function SampleCoverImage({ title, theme, emoji }) {
   const [error, setError] = useState(false)
-  const prompt = `${title} ${theme} children storybook cover illustration colorful cute`
-  const src = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=400&height=300&model=flux&nologo=true&seed=${title.length}`
+  const prompt = encodeURIComponent(`children storybook cover, ${theme}, cute, colorful, illustration`)
+  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${title.length}&width=400&height=300`
 
   if (error) {
     return (
