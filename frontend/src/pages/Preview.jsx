@@ -12,20 +12,23 @@ import { createBook } from '../api/book'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
-function buildIllustrationUrls(imageDescription, pageNum, { width = 512, height = 512 } = {}) {
+function ghibliStyle(age) {
+  const ageDesc = age ? `${age} year old child` : 'young child'
+  return `${ageDesc} protagonist, cute kid face, Studio Ghibli anime style, soft watercolor, warm pastel colors, children storybook illustration, kid-friendly, no adults, highly detailed`
+}
+
+function buildIllustrationUrls(imageDescription, pageNum, childAge, { width = 512, height = 512 } = {}) {
+  const style = ghibliStyle(childAge)
   const base = imageDescription
-    ? `children book illustration, ${imageDescription}, cute, colorful`
-    : `children storybook scene ${pageNum}, cute colorful`
+    ? `${imageDescription}, ${style}`
+    : `children storybook scene ${pageNum}, ${style}`
 
   const encoded = encodeURIComponent(base)
-  const simpleEncoded = encodeURIComponent(`children storybook illustration scene ${pageNum} colorful cute`)
+  const simpleEncoded = encodeURIComponent(`children storybook scene ${pageNum}, ${style}`)
 
   return [
-    // 1순위: 백엔드 프록시 (서버에서 Pollinations.ai 호출)
     `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum}&width=${width}&height=${height}`,
-    // 2순위: 다른 seed로 재시도
     `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum + 50}&width=${width}&height=${height}`,
-    // 3순위: 단순 프롬프트
     `${API_BASE}/api/images/generate?prompt=${simpleEncoded}&seed=${pageNum}&width=${width}&height=${height}`,
   ]
 }
@@ -243,7 +246,7 @@ export default function Preview() {
                     {/* 왼쪽: 그림 */}
                     <StoryImage
                         key={currentPage}
-                        sources={buildIllustrationUrls(page.imageDescription, page.pageNumber)}
+                        sources={buildIllustrationUrls(page.imageDescription, page.pageNumber, story.childAge)}
                         alt={`페이지 ${page.pageNumber} 삽화`}
                         className="w-full md:w-1/2 min-h-[320px] md:min-h-[520px]"
                         fallbackIndex={currentPage}
@@ -316,7 +319,7 @@ export default function Preview() {
                     <div className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors
                   ${i === currentPage ? 'border-primary' : 'border-transparent'}`}>
                       <ThumbImage
-                          src={buildIllustrationUrls(p.imageDescription, p.pageNumber, { width: 128, height: 128 })[0]}
+                          src={buildIllustrationUrls(p.imageDescription, p.pageNumber, story.childAge, { width: 128, height: 128 })[0]}
                           pageNum={p.pageNumber}
                       />
                     </div>

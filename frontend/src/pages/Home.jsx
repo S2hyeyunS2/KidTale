@@ -168,7 +168,13 @@ export default function Home() {
                       ${canPreview ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-1' : 'cursor-default'}`}
                   >
                     <div className="h-52 bg-gradient-to-br from-primary/10 to-rose-100 relative overflow-hidden">
-                      <SampleCoverImage title={s.title} theme={s.theme} emoji={emoji} />
+                      <SampleCoverImage
+                        title={s.title}
+                        theme={s.theme}
+                        emoji={emoji}
+                        seed={(s.id ?? idx) + 200}
+                        childAge={s.childAge}
+                      />
                     </div>
                     <div className="p-5">
                       <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">
@@ -213,24 +219,58 @@ export default function Home() {
 // 샘플 동화 커버 이미지 — 로드 실패 시 이모지 fallback
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
-function SampleCoverImage({ title, theme, emoji }) {
+// 지브리/애니 스타일 공통 suffix — cute child 명시로 성인 이미지 방지
+const STYLE = 'cute young child protagonist, Studio Ghibli anime style, soft watercolor, warm pastel colors, children storybook illustration, kid-friendly, highly detailed'
+
+// 테마 → 영어 핵심 키워드 매핑
+const THEME_KEYWORDS = {
+  '우주 탐험':   `child astronaut flying through space, colorful stars and planets, magical rocket, ${STYLE}`,
+  '바닷속 마법': `child swimming underwater with cute fish and sea creatures, glowing ocean magic, ${STYLE}`,
+  '숲속 모험':   `child exploring enchanted forest with woodland animals, magical trees, ${STYLE}`,
+  '숲속 요리사': `child cooking magical recipe in forest kitchen, flying ingredients, cute animals watching, ${STYLE}`,
+  '공룡 왕국':   `child riding friendly colorful dinosaur in prehistoric jungle, ${STYLE}`,
+  '마법사 학교': `child wizard casting spells in magical school, glowing wand and stars, ${STYLE}`,
+  '요리 대모험': `child on cooking adventure, giant magical food ingredients, delicious fantasy world, ${STYLE}`,
+  '동물 농장':   `child playing with friendly farm animals, sunny meadow, ${STYLE}`,
+  '공주와 왕자': `child dressed as princess or prince in magical castle, fairy tale, ${STYLE}`,
+  '로봇 친구':   `child playing with cute friendly robot, futuristic colorful world, ${STYLE}`,
+}
+
+function themePrompt(theme, childAge) {
+  const agePrefix = childAge ? `${childAge} year old child` : 'young child'
+  const base = THEME_KEYWORDS[theme] || `children storybook, ${theme} adventure, ${STYLE}`
+  return base.replace(/^(cute young child|child)/, agePrefix)
+}
+
+function SampleCoverImage({ title, theme, emoji, seed = 1, childAge }) {
+  const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
-  const prompt = encodeURIComponent(`children storybook cover, ${theme}, cute, colorful, illustration`)
-  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${title.length}&width=400&height=300`
+  const prompt = encodeURIComponent(themePrompt(theme, childAge))
+  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${seed}&width=400&height=300`
 
   if (error) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-rose-100">
         <span className="text-6xl">{emoji}</span>
       </div>
     )
   }
   return (
-    <img
-      src={src}
-      alt={title}
-      className="w-full h-full object-cover"
-      onError={() => setError(true)}
-    />
+    <div className="w-full h-full relative bg-gradient-to-br from-primary/10 to-rose-100">
+      {/* 로딩 스켈레톤 */}
+      {!loaded && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+          <p className="text-xs text-gray-400">그림 생성 중...</p>
+        </div>
+      )}
+      <img
+        src={src}
+        alt={title}
+        className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        onLoad={() => setLoaded(true)}
+        onError={() => setError(true)}
+      />
+    </div>
   )
 }
