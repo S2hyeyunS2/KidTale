@@ -100,31 +100,45 @@ public class BookService {
                         buildCoverParams(story.getTitle(), story.getChildName(), story.getTheme()),
                         null));
 
-        // 3. POST /books/{id}/contents (동화 페이지)
-        for (int i = 0; i < pages.size(); i++) {
-            StoryPage page = pages.get(i);
+        // 3. POST /books/{id}/contents
+        // 각 장면(scene)을 이미지 페이지 + 텍스트 페이지, 2페이지로 제출
+        // 12장면 × 2페이지 = 24페이지 (SweetBook 최소 요건 충족)
+        boolean firstPage = true;
+        for (StoryPage page : pages) {
+            // 3-a. 이미지 페이지 (왼쪽)
             sweetBookClient.createContents(sweetBookId,
                     new CreateContentRequest(
                             contentTemplateUid,
-                            buildContentParams(page.text(), page.pageNumber(), page.imageDescription()),
+                            buildImageOnlyParams(page.pageNumber(), page.imageDescription()),
                             null,
-                            i == 0 ? null : "page"));
-        }
+                            firstPage ? null : "page"));
+            firstPage = false;
 
-        // 3-1. 최소 페이지 수 미달 시 빈 페이지로 채우기
-        int minPages = resolveMinPages(resolveBookSpecUid());
-        String blankTemplateUid = selectBlankTemplate(contentTemplateUid);
-        int fillerCount = Math.max(0, minPages - pages.size());
-        log.debug("[BookService] 최소 페이지={}, 현재={}, 추가 필요={}", minPages, pages.size(), fillerCount);
-
-        for (int i = 0; i < fillerCount; i++) {
-            int fillerPageNum = pages.size() + i + 1;
+            // 3-b. 텍스트 페이지 (오른쪽)
             sweetBookClient.createContents(sweetBookId,
                     new CreateContentRequest(
-                            blankTemplateUid,
-                            buildFillerParams(fillerPageNum),
+                            contentTemplateUid,
+                            buildTextOnlyParams(page.text(), page.pageNumber()),
                             null,
                             "page"));
+        }
+
+        // 3-c. 12장면 × 2페이지 = 24페이지라 필러 불필요하지만 안전망 유지
+        int minPages = resolveMinPages(resolveBookSpecUid());
+        int submittedPages = pages.size() * 2;
+        int fillerCount = Math.max(0, minPages - submittedPages);
+        log.debug("[BookService] 최소 페이지={}, 제출={}, 추가 필요={}", minPages, submittedPages, fillerCount);
+
+        if (fillerCount > 0) {
+            String blankTemplateUid = selectBlankTemplate(contentTemplateUid);
+            for (int i = 0; i < fillerCount; i++) {
+                sweetBookClient.createContents(sweetBookId,
+                        new CreateContentRequest(
+                                blankTemplateUid,
+                                buildFillerParams(submittedPages + i + 1),
+                                null,
+                                "page"));
+            }
         }
 
         // 4. POST /books/{id}/finalization
@@ -279,9 +293,54 @@ public class BookService {
         return serialize(params);
     }
 
+    /** 이미지 전용 페이지 파라미터 (왼쪽 페이지) */
+    private String buildImageOnlyParams(int pageNumber, String imageDescription) {
+        String imageUrl = buildContentImageUrl(imageDescription, pageNumber);
+        String year     = String.valueOf(LocalDate.now().getYear());
+        String dateRange = year + ".01 - " + year + ".12";
+
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("text",          "");
+        params.put("pageText",      "");
+        params.put("pageNumber",    pageNumber);
+        params.put("title",         "");
+        params.put("dateRange",     dateRange);
+        params.put("date",          year);
+        params.put("contentPhoto",  imageUrl);
+        params.put("pagePhoto",     imageUrl);
+        params.put("contentImage",  imageUrl);
+        params.put("photo",         imageUrl);
+        params.put("image",         imageUrl);
+        params.put("mainPhoto",     imageUrl);
+        return serialize(params);
+    }
+
+    /** 텍스트 전용 페이지 파라미터 (오른쪽 페이지) */
+    private String buildTextOnlyParams(String text, int pageNumber) {
+        String year     = String.valueOf(LocalDate.now().getYear());
+        String dateRange = year + ".01 - " + year + ".12";
+        String blankImg = POLLINATIONS_BASE
+                + urlEncode("soft pastel white background children book page")
+                + "?width=800&height=800&model=flux&nologo=true&seed=" + (pageNumber + 100);
+
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("text",          text);
+        params.put("pageText",      text);
+        params.put("pageNumber",    pageNumber);
+        params.put("title",         "");
+        params.put("dateRange",     dateRange);
+        params.put("date",          year);
+        params.put("contentPhoto",  blankImg);
+        params.put("pagePhoto",     blankImg);
+        params.put("contentImage",  blankImg);
+        params.put("photo",         blankImg);
+        params.put("image",         blankImg);
+        params.put("mainPhoto",     blankImg);
+        return serialize(params);
+    }
+
     /**
-     * 내지 파라미터.
-     * imageDescription으로 Pollinations.ai AI 삽화 URL을 생성해 주입한다.
+     * 내지 파라미터 (레거시 — 단일 페이지 형식 호환용).
      */
     private String buildContentParams(String text, int pageNumber, String imageDescription) {
         String imageUrl  = buildContentImageUrl(imageDescription, pageNumber);
