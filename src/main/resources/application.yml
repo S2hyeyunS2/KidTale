@@ -33,6 +33,7 @@ gemini:
     base-url: ${GEMINI_API_BASE_URL:https://generativelanguage.googleapis.com/v1beta}
     key: ${GEMINI_API_KEY}
     model: ${GEMINI_MODEL:gemini-2.5-flash}
+    fallback-model: ${GEMINI_FALLBACK_MODEL:gemini-2.0-flash}
 
 server:
   port: 8080

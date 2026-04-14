@@ -9,6 +9,6 @@ public record GeminiGenerationConfig(
         String responseMimeType
 ) {
     public static GeminiGenerationConfig jsonMode() {
-        return new GeminiGenerationConfig(0.7, 4096, "application/json");
+        return new GeminiGenerationConfig(0.7, 8192, "application/json");
     }
 }
