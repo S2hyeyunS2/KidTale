@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import StepIndicator from '../components/StepIndicator'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { getOrder } from '../api/order'
@@ -148,6 +149,7 @@ export default function OrderComplete() {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

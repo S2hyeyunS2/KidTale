@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import StepIndicator from '../components/StepIndicator'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorMessage from '../components/ErrorMessage'
@@ -296,6 +297,7 @@ export default function OrderForm() {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
   )
 }

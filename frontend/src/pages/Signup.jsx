@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { signup } from '../api/auth'
 import { useAuth } from '../context/AuthContext'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 export default function Signup() {
   const navigate = useNavigate()
@@ -106,6 +107,7 @@ export default function Signup() {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
