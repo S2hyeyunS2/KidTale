@@ -8,4 +8,6 @@ import java.util.List;
 public interface StoryRepository extends JpaRepository<Story, Long> {
 
     List<Story> findTop10ByOrderByCreatedAtDesc();
+
+    List<Story> findByUserIdOrderByCreatedAtDesc(Long userId);
 }

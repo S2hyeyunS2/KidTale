@@ -4,13 +4,17 @@ import Header from '../components/Header'
 import StepIndicator from '../components/StepIndicator'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorMessage from '../components/ErrorMessage'
+import LoginModal from '../components/LoginModal'
 import { createOrder } from '../api/order'
+import { useAuth } from '../context/AuthContext'
 
 export default function OrderForm() {
   const { storyId } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const story = location.state?.story || null
+  const { user } = useAuth()
+  const [showLogin, setShowLogin] = useState(false)
 
   const [form, setForm] = useState({
     recipientName: '',
@@ -64,6 +68,30 @@ export default function OrderForm() {
   }
 
   if (loading) return <LoadingSpinner message="주문을 처리 중입니다..." />
+
+  // 비로그인 상태 — 로그인 안내
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-soft">
+        <Header />
+        {showLogin && (
+          <LoginModal
+            onClose={() => setShowLogin(false)}
+            redirectPath={`/order/${storyId}`}
+          />
+        )}
+        <div className="flex flex-col items-center justify-center py-32 px-6 text-center">
+          <div className="text-5xl mb-4">🔐</div>
+          <p className="text-gray-700 font-semibold text-lg mb-2">로그인이 필요합니다</p>
+          <p className="text-gray-400 text-sm mb-8">주문하려면 먼저 로그인해주세요</p>
+          <div className="flex gap-3">
+            <button onClick={() => navigate(-1)} className="btn-outline">이전으로</button>
+            <button onClick={() => setShowLogin(true)} className="btn-primary">로그인하기</button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-soft">

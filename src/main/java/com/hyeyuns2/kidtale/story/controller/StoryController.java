@@ -1,5 +1,7 @@
 package com.hyeyuns2.kidtale.story.controller;
 
+import com.hyeyuns2.kidtale.auth.entity.User;
+import com.hyeyuns2.kidtale.auth.repository.UserRepository;
 import com.hyeyuns2.kidtale.common.response.ApiResponse;
 import com.hyeyuns2.kidtale.story.dto.request.StoryCreateRequest;
 import com.hyeyuns2.kidtale.story.dto.response.StoryResponse;
@@ -8,6 +10,8 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +27,11 @@ import java.util.List;
 public class StoryController {
 
     private final StoryService storyService;
+    private final UserRepository userRepository;
 
-    public StoryController(StoryService storyService) {
+    public StoryController(StoryService storyService, UserRepository userRepository) {
         this.storyService = storyService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -35,12 +41,25 @@ public class StoryController {
         return ResponseEntity.ok(ApiResponse.ok(response));
     }
 
+    /** 내 동화 목록 — 로그인 필요 */
+    @GetMapping("/my")
+    public ResponseEntity<ApiResponse<List<StoryResponse>>> getMyStories(
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        Long userId = resolveUserId(userDetails);
+        log.debug("[StoryController] GET /api/stories/my. userId={}", userId);
+        List<StoryResponse> response = storyService.findByUserId(userId);
+        return ResponseEntity.ok(ApiResponse.ok(response));
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse<StoryResponse>> generateStory(
-            @Valid @RequestBody StoryCreateRequest request
+            @Valid @RequestBody StoryCreateRequest request,
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
-        log.debug("[StoryController] POST /api/stories. childName={}", request.childName());
-        StoryResponse response = storyService.generateAndSave(request);
+        Long userId = resolveUserId(userDetails);
+        log.debug("[StoryController] POST /api/stories. childName={}, userId={}", request.childName(), userId);
+        StoryResponse response = storyService.generateAndSave(request, userId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.ok("동화가 생성되었습니다.", response));
@@ -51,5 +70,13 @@ public class StoryController {
         log.debug("[StoryController] GET /api/stories/{}", id);
         StoryResponse response = storyService.findById(id);
         return ResponseEntity.ok(ApiResponse.ok(response));
+    }
+
+    /** 인증된 사용자의 userId 조회 — 비로그인이면 null 반환 */
+    private Long resolveUserId(UserDetails userDetails) {
+        if (userDetails == null) return null;
+        return userRepository.findByUsername(userDetails.getUsername())
+                .map(User::getId)
+                .orElse(null);
     }
 }

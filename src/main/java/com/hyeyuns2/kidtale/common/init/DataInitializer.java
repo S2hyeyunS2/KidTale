@@ -57,7 +57,7 @@ public class DataInitializer implements ApplicationRunner {
     private Story toStory(DummyStoryData data) {
         try {
             String pagesJson = objectMapper.writeValueAsString(data.pages());
-            return Story.create(data.childName(), data.childAge(), data.theme(), data.title(), pagesJson);
+            return Story.create(null, data.childName(), data.childAge(), data.theme(), data.title(), pagesJson);
         } catch (Exception e) {
             log.error("[DataInitializer] 더미 스토리 변환 실패. title={}", data.title(), e);
             throw new RuntimeException("더미 데이터 변환 실패: " + data.title(), e);

@@ -32,15 +32,15 @@ public class StoryService {
     }
 
     @Transactional
-    public StoryResponse generateAndSave(StoryCreateRequest request) {
-        log.debug("[StoryService] 동화 생성 시작. childName={}, childAge={}, theme={}",
-                request.childName(), request.childAge(), request.theme());
+    public StoryResponse generateAndSave(StoryCreateRequest request, Long userId) {
+        log.debug("[StoryService] 동화 생성 시작. childName={}, childAge={}, theme={}, userId={}",
+                request.childName(), request.childAge(), request.theme(), userId);
 
         String rawJson = geminiClient.generateStory(request.childName(), request.childAge(), request.theme());
         StoryGeneratedContent generated = parseGeneratedContent(rawJson);
 
         String pagesJson = serializePages(generated.pages());
-        Story story = Story.create(request.childName(), request.childAge(), request.theme(),
+        Story story = Story.create(userId, request.childName(), request.childAge(), request.theme(),
                 generated.title(), pagesJson);
         Story saved = storyRepository.save(story);
 
@@ -51,6 +51,13 @@ public class StoryService {
     @Transactional(readOnly = true)
     public List<StoryResponse> findAll() {
         return storyRepository.findTop10ByOrderByCreatedAtDesc().stream()
+                .map(story -> toResponse(story, deserializePages(story.getPagesJson())))
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<StoryResponse> findByUserId(Long userId) {
+        return storyRepository.findByUserIdOrderByCreatedAtDesc(userId).stream()
                 .map(story -> toResponse(story, deserializePages(story.getPagesJson())))
                 .toList();
     }

@@ -6,6 +6,15 @@ const api = axios.create({
   timeout: 60000, // Gemini 응답 대기를 위해 60초
 })
 
+// JWT 토큰 자동 첨부
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
 api.interceptors.response.use(
   (res) => res,
   (err) => {

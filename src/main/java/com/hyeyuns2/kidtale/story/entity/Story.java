@@ -24,6 +24,9 @@ public class Story extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private Long userId;
+
     @Column(nullable = false, length = 50)
     private String childName;
 
@@ -50,8 +53,9 @@ public class Story extends BaseEntity {
     @Column(nullable = false, length = 20)
     private StoryStatus status;
 
-    public static Story create(String childName, int childAge, String theme, String title, String pagesJson) {
+    public static Story create(Long userId, String childName, int childAge, String theme, String title, String pagesJson) {
         Story story = new Story();
+        story.userId = userId;
         story.childName = childName;
         story.childAge = childAge;
         story.theme = theme;

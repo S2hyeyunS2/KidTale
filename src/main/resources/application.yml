@@ -35,6 +35,10 @@ gemini:
     model: ${GEMINI_MODEL:gemini-2.5-flash}
     fallback-model: ${GEMINI_FALLBACK_MODEL:gemini-2.0-flash}
 
+jwt:
+  secret: ${JWT_SECRET}
+  expiry-days: ${JWT_EXPIRY_DAYS:7}
+
 server:
   port: 8080
 
