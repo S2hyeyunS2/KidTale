@@ -23,6 +23,13 @@ public enum ErrorCode {
     BOOK_ALREADY_CREATED(HttpStatus.BAD_REQUEST, "BOOK_ALREADY_CREATED", "이미 책이 생성된 동화입니다."),
     SWEETBOOK_NOT_CONFIGURED(HttpStatus.INTERNAL_SERVER_ERROR, "SWEETBOOK_NOT_CONFIGURED", "SweetBook 템플릿 설정이 필요합니다."),
 
+    // Auth
+    USERNAME_ALREADY_EXISTS(HttpStatus.CONFLICT, "USERNAME_ALREADY_EXISTS", "이미 사용 중인 아이디입니다."),
+    EMAIL_ALREADY_EXISTS(HttpStatus.CONFLICT, "EMAIL_ALREADY_EXISTS", "이미 사용 중인 이메일입니다."),
+    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "INVALID_CREDENTIALS", "아이디 또는 비밀번호가 올바르지 않습니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_NOT_FOUND", "사용자를 찾을 수 없습니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "로그인이 필요합니다."),
+
     // Order
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "ORDER_NOT_FOUND", "주문을 찾을 수 없습니다."),
     ORDER_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "ORDER_FAILED", "주문 처리에 실패했습니다."),
