@@ -7,6 +7,86 @@ import ErrorMessage from '../components/ErrorMessage'
 import { getStory } from '../api/story'
 import { createBook } from '../api/book'
 
+/**
+ * Pollinations.ai 이미지 URL 생성
+ * - scene description을 앞에 배치해 내용 일치도를 높임
+ * - flux-anime 모델로 동화책 스타일 일러스트 생성
+ */
+function buildIllustrationUrl(imageDescription, pageNum, { width = 800, height = 600 } = {}) {
+  const scene = imageDescription || `fairy tale scene page ${pageNum}`
+  const style = 'cute chibi Korean children storybook illustration, soft pastel colors, sparkles, kawaii style, high quality'
+  const desc = `${scene}, ${style}`
+  return (
+    `https://image.pollinations.ai/prompt/${encodeURIComponent(desc)}` +
+    `?width=${width}&height=${height}&model=flux&nologo=true&enhance=true&seed=${pageNum}`
+  )
+}
+
+/**
+ * 로딩 → 이미지 → 실패 fallback 상태를 관리하는 이미지 컴포넌트
+ */
+function StoryImage({ src, alt, className, pageIndex }) {
+  const [status, setStatus] = useState('loading')
+
+  // src가 바뀌면 (페이지 전환) 다시 로딩 상태로
+  useEffect(() => { setStatus('loading') }, [src])
+
+  return (
+    <div className={`relative ${className}`}>
+      {/* 로딩 중 스켈레톤 */}
+      {status === 'loading' && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-rose-50 to-amber-50">
+          <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-3" />
+          <p className="text-xs text-gray-400 font-medium">그림 생성 중...</p>
+        </div>
+      )}
+
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-cover transition-opacity duration-500 ${status === 'loaded' ? 'opacity-100' : 'opacity-0'}`}
+        onLoad={() => setStatus('loaded')}
+        onError={() => setStatus('error')}
+      />
+
+      {/* 실패 fallback */}
+      {status === 'error' && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-primary/10 to-rose-100">
+          <span className="text-5xl mb-2">
+            {['🌟', '🌈', '🎨', '✨', '🌸', '🦋', '🌻', '🎭', '🏰', '🎪'][pageIndex % 10]}
+          </span>
+          <p className="text-xs text-gray-400">이미지 생성 실패</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/**
+ * 페이지 목록 썸네일용 — 작은 사이즈, 로딩 시 회색 placeholder
+ */
+function ThumbImage({ src }) {
+  const [status, setStatus] = useState('loading')
+  useEffect(() => { setStatus('loading') }, [src])
+
+  return (
+    <div className="w-12 h-8 rounded shrink-0 overflow-hidden bg-gray-100 flex items-center justify-center">
+      {status !== 'error' && (
+        <img
+          src={src}
+          alt=""
+          className={`w-full h-full object-cover transition-opacity duration-300 ${status === 'loaded' ? 'opacity-100' : 'opacity-0'}`}
+          onLoad={() => setStatus('loaded')}
+          onError={() => setStatus('error')}
+        />
+      )}
+      {status === 'loading' && (
+        <div className="absolute w-3 h-3 border-2 border-primary/40 border-t-primary rounded-full animate-spin" />
+      )}
+    </div>
+  )
+}
+
 export default function Preview() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -18,7 +98,6 @@ export default function Preview() {
   const [loadingBook, setLoadingBook] = useState(false)
   const [error, setError] = useState('')
 
-  // 동화 조회
   useEffect(() => {
     if (!story) {
       getStory(id)
@@ -32,7 +111,6 @@ export default function Preview() {
     setLoadingBook(true)
     setError('')
     try {
-      // 템플릿은 백엔드에서 자동 선택 — storyId만 전달
       await createBook({ storyId: Number(id) })
       navigate(`/order/${id}`, { state: { story } })
     } catch (err) {
@@ -43,7 +121,7 @@ export default function Preview() {
   }
 
   if (loadingStory) return <LoadingSpinner message="동화를 불러오는 중..." />
-  if (loadingBook) return <LoadingSpinner message="책을 제작 중입니다... (약 30초 소요)" />
+  if (loadingBook) return <LoadingSpinner message="책을 제작 중입니다... (약 3분 소요)" />
   if (!story && !loadingStory) return (
     <div className="min-h-screen bg-gray-soft">
       <Header />
@@ -64,19 +142,6 @@ export default function Preview() {
   const pages = story.pages || []
   const page = pages[currentPage]
 
-  // Pollinations.ai — 무료 AI 이미지 생성 (API 키 불필요)
-  const buildIllustrationUrl = (imageDescription, pageNum) => {
-    const desc = imageDescription
-      ? `${imageDescription} children book illustration watercolor colorful`
-      : `fairy tale scene page ${pageNum} children illustration`
-    return `https://image.pollinations.ai/prompt/${encodeURIComponent(desc)}?width=800&height=500&model=flux&nologo=true&seed=${pageNum}`
-  }
-
-  const buildCoverUrl = () => {
-    const desc = `${story.title} ${story.theme} children fairy tale book cover illustration colorful cute`
-    return `https://image.pollinations.ai/prompt/${encodeURIComponent(desc)}?width=800&height=800&model=flux&nologo=true`
-  }
-
   return (
     <div className="min-h-screen bg-gray-soft">
       <Header />
@@ -96,7 +161,6 @@ export default function Preview() {
 
         {/* 책 뷰어 */}
         <div className="card mb-6 overflow-hidden animate-fadeInUp">
-          {/* 페이지 컨텐츠 */}
           <div className="relative bg-amber-50">
             {/* 페이지 번호 */}
             <div className="absolute top-3 right-3 z-10 text-xs text-gray-400 bg-white/80 px-3 py-1 rounded-full shadow-sm">
@@ -106,27 +170,15 @@ export default function Preview() {
             {page && (
               <div key={currentPage} className="animate-fadeInUp">
                 {/* AI 삽화 */}
-                <div className="relative w-full aspect-[16/10] bg-gradient-to-br from-amber-50 to-rose-50 overflow-hidden">
-                  <img
-                    src={buildIllustrationUrl(page.imageDescription, page.pageNumber)}
-                    alt={`페이지 ${page.pageNumber} 삽화`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.style.display = 'none'
-                      e.target.nextSibling.style.display = 'flex'
-                    }}
-                  />
-                  {/* 이미지 로드 실패 시 fallback */}
-                  <div className="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-primary/10 to-rose-100">
-                    <span className="text-6xl">
-                      {['🌟','🌈','🎨','✨','🌸','🦋','🌻','🎭','🏰','🎪'][currentPage % 10]}
-                    </span>
-                  </div>
-                </div>
+                <StoryImage
+                  src={buildIllustrationUrl(page.imageDescription, page.pageNumber)}
+                  alt={`페이지 ${page.pageNumber} 삽화`}
+                  className="w-full aspect-[4/3]"
+                  pageIndex={currentPage}
+                />
 
                 {/* 동화 텍스트 */}
-                <div className="px-8 py-6 text-center">
+                <div className="px-8 py-6 text-center bg-amber-50">
                   <p className="text-gray-800 text-lg leading-relaxed font-medium">{page.text}</p>
                 </div>
               </div>
@@ -143,14 +195,16 @@ export default function Preview() {
             >
               ← 이전 페이지
             </button>
-            {/* 페이지 도트 */}
-            <div className="flex gap-1.5">
+            {/* 페이지 도트 — 24개는 도트 대신 슬라이더 스타일 */}
+            <div className="flex gap-1 flex-wrap justify-center max-w-xs">
               {pages.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i)}
-                  className={`w-2 h-2 rounded-full transition-all
-                    ${i === currentPage ? 'bg-primary w-5' : 'bg-gray-300 hover:bg-primary/50'}`}
+                  className={`rounded-full transition-all
+                    ${i === currentPage
+                      ? 'bg-primary w-5 h-2'
+                      : 'bg-gray-300 hover:bg-primary/50 w-2 h-2'}`}
                 />
               ))}
             </div>
@@ -179,14 +233,11 @@ export default function Preview() {
                   ${i === currentPage ? 'bg-primary/5 border-l-2 border-primary' : ''}`}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`text-sm font-bold w-5 shrink-0 ${i === currentPage ? 'text-primary' : 'text-gray-400'}`}>
+                  <span className={`text-sm font-bold w-6 shrink-0 ${i === currentPage ? 'text-primary' : 'text-gray-400'}`}>
                     {i + 1}
                   </span>
-                  <img
-                    src={buildIllustrationUrl(p.imageDescription, p.pageNumber)}
-                    alt=""
-                    className="w-12 h-8 object-cover rounded shrink-0"
-                    loading="lazy"
+                  <ThumbImage
+                    src={buildIllustrationUrl(p.imageDescription, p.pageNumber, { width: 96, height: 64 })}
                   />
                   <p className="text-sm text-gray-700 line-clamp-1 flex-1 text-left">{p.text}</p>
                 </div>

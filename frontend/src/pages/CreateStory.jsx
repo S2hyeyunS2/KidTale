@@ -62,7 +62,7 @@ export default function CreateStory() {
 
   return (
     <div className="min-h-screen bg-gray-soft">
-      {loading && <LoadingSpinner message="AI가 동화를 쓰고 있어요... (약 30초 소요)" />}
+      {loading && <LoadingSpinner message="AI가 동화를 쓰고 있어요... (약 3분 소요)" />}
       <Header />
 
       <div className="max-w-2xl mx-auto px-6 py-10">
@@ -155,7 +155,7 @@ export default function CreateStory() {
                 <p className="font-semibold text-primary mb-1">✨ 이런 동화가 만들어져요</p>
                 <p>
                   <strong>{form.childName}</strong>({form.childAge}세)이(가) 주인공인{' '}
-                  <strong>'{selectedTheme}'</strong> 테마의 10페이지 동화
+                  <strong>'{selectedTheme}'</strong> 테마의 24페이지 동화
                 </p>
               </div>
             )}

@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 public record GeminiProperties(
         @NotBlank String baseUrl,
         @NotBlank String key,
-        @NotBlank String model
+        @NotBlank String model,
+        String fallbackModel
 ) {
 }
