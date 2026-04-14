@@ -14,6 +14,12 @@ export const createStory = (data) =>
   api.post('/api/stories', data).then((res) => res.data.data)
 
 /**
+ * 내 동화 목록 조회 (GET /api/stories/my) — 로그인 필요
+ */
+export const getMyStories = () =>
+  api.get('/api/stories/my').then((res) => res.data.data)
+
+/**
  * 동화 단건 조회 (GET /api/stories/:id)
  * @param {number} id
  */
