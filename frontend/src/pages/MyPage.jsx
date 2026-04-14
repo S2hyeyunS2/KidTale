@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import { useAuth } from '../context/AuthContext'
 import { getMyStories } from '../api/story'
 
@@ -115,6 +116,7 @@ export default function MyPage() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

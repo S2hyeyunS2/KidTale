@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import { getStories } from '../api/story'
 
 const FALLBACK_STORIES = [
@@ -45,11 +46,6 @@ export default function Home() {
       .catch(() => setSampleStories(FALLBACK_STORIES))
       .finally(() => setStoriesLoading(false))
   }, [])
-
-  const handleStoryClick = (story) => {
-    if (!story.id) return // fallback 더미는 클릭 불가
-    navigate(`/preview/${story.id}`, { state: { story } })
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -167,28 +163,12 @@ export default function Home() {
                 return (
                   <div
                     key={s.id ?? idx}
-                    onClick={() => handleStoryClick(s)}
-                    className={`card transition-all duration-200
-                      ${canPreview
-                        ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-1'
-                        : 'cursor-default opacity-70'}`}
+                    onClick={() => canPreview && navigate(`/preview/${s.id}`, { state: { story: s, previewOnly: true } })}
+                    className={`card overflow-hidden transition-all duration-200
+                      ${canPreview ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-1' : 'cursor-default'}`}
                   >
-                    <div className="h-48 bg-gradient-to-br from-primary/10 to-rose-100 overflow-hidden relative">
-                      {canPreview ? (
-                        <img
-                          src={`https://image.pollinations.ai/prompt/${encodeURIComponent(`${s.title} ${s.theme} children fairy tale book cover colorful cute`)  }?width=400&height=300&model=flux&nologo=true`}
-                          alt={s.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          onError={(e) => {
-                            e.target.style.display = 'none'
-                            e.target.nextSibling.style.display = 'flex'
-                          }}
-                        />
-                      ) : null}
-                      <div className={`${canPreview ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center`}>
-                        <span className="text-6xl">{emoji}</span>
-                      </div>
+                    <div className="h-52 bg-gradient-to-br from-primary/10 to-rose-100 relative overflow-hidden">
+                      <SampleCoverImage title={s.title} theme={s.theme} emoji={emoji} />
                     </div>
                     <div className="p-5">
                       <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">
@@ -196,12 +176,8 @@ export default function Home() {
                       </span>
                       <h3 className="font-bold text-gray-900 text-lg mt-3 mb-1">{s.title}</h3>
                       <p className="text-gray-400 text-sm">주인공: {s.childName}</p>
-                      {canPreview ? (
-                        <button className="mt-4 text-primary text-sm font-semibold hover:underline">
-                          미리보기 →
-                        </button>
-                      ) : (
-                        <p className="mt-4 text-gray-300 text-xs">샘플 준비 중</p>
+                      {canPreview && (
+                        <p className="mt-3 text-primary text-sm font-semibold">미리보기 →</p>
                       )}
                     </div>
                   </div>
@@ -229,11 +205,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10 bg-gray-900 text-center text-gray-500 text-sm">
-        <p className="text-white font-bold text-lg mb-2">KidTale ♡</p>
-        <p>AI 동화책 제작 서비스 · Powered by Gemini AI × SweetBook Print API</p>
-      </footer>
+      <Footer />
     </div>
+  )
+}
+
+// 샘플 동화 커버 이미지 — 로드 실패 시 이모지 fallback
+function SampleCoverImage({ title, theme, emoji }) {
+  const [error, setError] = useState(false)
+  const prompt = `${title} ${theme} children storybook cover illustration colorful cute`
+  const src = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=400&height=300&model=flux&nologo=true&seed=${title.length}`
+
+  if (error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <span className="text-6xl">{emoji}</span>
+      </div>
+    )
+  }
+  return (
+    <img
+      src={src}
+      alt={title}
+      className="w-full h-full object-cover"
+      onError={() => setError(true)}
+    />
   )
 }
