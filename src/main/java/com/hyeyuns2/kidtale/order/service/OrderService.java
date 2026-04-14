@@ -38,7 +38,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderResponse createOrder(OrderCreateRequest request) {
+    public OrderResponse createOrder(OrderCreateRequest request, Long userId) {
         Story story = storyRepository.findById(request.storyId())
                 .orElseThrow(() -> new KidTaleException(ErrorCode.STORY_NOT_FOUND));
 
@@ -54,6 +54,7 @@ public class OrderService {
 
         // Order 엔티티 DB 저장
         Order order = Order.create(
+                userId,
                 story.getId(),
                 sweetBookOrderId,
                 request.recipientName(),

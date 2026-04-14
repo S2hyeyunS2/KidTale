@@ -23,6 +23,9 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private Long userId;
+
     @Column(nullable = false)
     private Long storyId;
 
@@ -55,6 +58,7 @@ public class Order extends BaseEntity {
     private OrderStatus status;
 
     public static Order create(
+            Long userId,
             Long storyId,
             String sweetBookOrderId,
             String recipientName,
@@ -66,6 +70,7 @@ public class Order extends BaseEntity {
             int quantity
     ) {
         Order order = new Order();
+        order.userId = userId;
         order.storyId = storyId;
         order.sweetBookOrderId = sweetBookOrderId;
         order.recipientName = recipientName;
