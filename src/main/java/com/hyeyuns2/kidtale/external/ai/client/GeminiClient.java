@@ -28,23 +28,38 @@ public class GeminiClient {
             - %s가 주인공이어야 합니다
             - %d살에게 적합한 수준의 내용
             - 긍정적이고 교훈적인 결말
-            - 반드시 10페이지로 구성하세요
-            - 각 페이지는 2~3문장으로 자연스럽게 이어지는 이야기
+            - 반드시 24페이지로 구성하세요 (실제 그림책 분량)
+            - 각 페이지는 1~2문장으로 짧고 자연스럽게 이어지는 이야기
+            - 이야기 흐름: 도입(1~4p) → 전개(5~16p) → 절정(17~20p) → 해결/마무리(21~24p)
 
             반드시 아래 JSON 형식으로만 출력하세요 (다른 텍스트 없이):
             {
               "title": "동화 제목",
               "pages": [
-                {"pageNumber": 1, "text": "첫 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 2, "text": "두 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 3, "text": "세 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 4, "text": "네 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 5, "text": "다섯 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 6, "text": "여섯 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 7, "text": "일곱 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 8, "text": "여덟 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 9, "text": "아홉 번째 페이지 내용", "imageDescription": "detailed illustration description in English"},
-                {"pageNumber": 10, "text": "열 번째 페이지 내용", "imageDescription": "detailed illustration description in English"}
+                {"pageNumber": 1, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 2, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 3, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 4, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 5, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 6, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 7, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 8, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 9, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 10, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 11, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 12, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 13, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 14, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 15, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 16, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 17, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 18, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 19, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 20, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 21, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 22, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 23, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"},
+                {"pageNumber": 24, "text": "페이지 내용", "imageDescription": "detailed illustration description in English"}
               ]
             }
             """;
