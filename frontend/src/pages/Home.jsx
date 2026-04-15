@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { getStories } from '../api/story'
+import { API_BASE, NEGATIVE_PROMPT, GHIBLI_STYLE } from '../constants/image'
 
 const FALLBACK_STORIES = [
   { id: null, title: '지우의 별나라 여행', childName: '지우', theme: '우주 탐험', emoji: '🚀' },
@@ -217,38 +218,32 @@ export default function Home() {
 }
 
 // 샘플 동화 커버 이미지 — 로드 실패 시 이모지 fallback
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
-
-// 지브리/애니 스타일 공통 suffix — cute child 명시로 성인 이미지 방지
-const STYLE = 'cute young child protagonist, Studio Ghibli anime style, soft watercolor, warm pastel colors, children storybook illustration, kid-friendly, highly detailed'
 
 // 테마 → 영어 핵심 키워드 매핑
 const THEME_KEYWORDS = {
-  '우주 탐험':   `child astronaut flying through space, colorful stars and planets, magical rocket, ${STYLE}`,
-  '바닷속 마법': `child swimming underwater with cute fish and sea creatures, glowing ocean magic, ${STYLE}`,
-  '숲속 모험':   `child exploring enchanted forest with woodland animals, magical trees, ${STYLE}`,
-  '숲속 요리사': `child cooking magical recipe in forest kitchen, flying ingredients, cute animals watching, ${STYLE}`,
-  '공룡 왕국':   `child riding friendly colorful dinosaur in prehistoric jungle, ${STYLE}`,
-  '마법사 학교': `child wizard casting spells in magical school, glowing wand and stars, ${STYLE}`,
-  '요리 대모험': `child on cooking adventure, giant magical food ingredients, delicious fantasy world, ${STYLE}`,
-  '동물 농장':   `child playing with friendly farm animals, sunny meadow, ${STYLE}`,
-  '공주와 왕자': `child dressed as princess or prince in magical castle, fairy tale, ${STYLE}`,
-  '로봇 친구':   `child playing with cute friendly robot, futuristic colorful world, ${STYLE}`,
+  '우주 탐험':   `child astronaut flying through space, colorful stars and planets, magical rocket, ${GHIBLI_STYLE}`,
+  '바닷속 마법': `child swimming underwater with cute fish and sea creatures, glowing ocean magic, ${GHIBLI_STYLE}`,
+  '숲속 모험':   `child exploring enchanted forest with woodland animals, magical trees, ${GHIBLI_STYLE}`,
+  '숲속 요리사': `child cooking magical recipe in forest kitchen, flying ingredients, cute animals watching, ${GHIBLI_STYLE}`,
+  '공룡 왕국':   `child riding friendly colorful dinosaur in prehistoric jungle, ${GHIBLI_STYLE}`,
+  '마법사 학교': `child wizard casting spells in magical school, glowing wand and stars, ${GHIBLI_STYLE}`,
+  '요리 대모험': `child on cooking adventure, giant magical food ingredients, delicious fantasy world, ${GHIBLI_STYLE}`,
+  '동물 농장':   `child playing with friendly farm animals, sunny meadow, ${GHIBLI_STYLE}`,
+  '공주와 왕자': `child dressed as princess or prince in magical castle, fairy tale, ${GHIBLI_STYLE}`,
+  '로봇 친구':   `child playing with cute friendly robot, futuristic colorful world, ${GHIBLI_STYLE}`,
 }
 
 function themePrompt(theme, childAge) {
   const agePrefix = childAge ? `${childAge} year old child` : 'young child'
-  const base = THEME_KEYWORDS[theme] || `children storybook, ${theme} adventure, ${STYLE}`
+  const base = THEME_KEYWORDS[theme] || `children storybook, ${theme} adventure, ${GHIBLI_STYLE}`
   return base.replace(/^(cute young child|child)/, agePrefix)
 }
-
-const HOME_NEGATIVE = encodeURIComponent('adult, teenager, teen, mature, grown up, elderly, old person, woman, man, sexy, realistic photo')
 
 function SampleCoverImage({ title, theme, emoji, seed = 1, childAge }) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
   const prompt = encodeURIComponent(themePrompt(theme, childAge))
-  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${seed}&width=400&height=300&negative_prompt=${HOME_NEGATIVE}`
+  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${seed}&width=400&height=300&negative_prompt=${NEGATIVE_PROMPT}`
 
   if (error) {
     return (
