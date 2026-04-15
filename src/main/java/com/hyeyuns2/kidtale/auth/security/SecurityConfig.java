@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/stories/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/stories").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/stories/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/books").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/api/admin/**").permitAll()

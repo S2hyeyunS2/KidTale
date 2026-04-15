@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import StepIndicator from '../components/StepIndicator'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorMessage from '../components/ErrorMessage'
-import { getStory } from '../api/story'
+import { getStory, updatePageText } from '../api/story'
 import { createBook } from '../api/book'
 
 // ─── 이미지 URL ────────────────────────────────────────────────────────────────
@@ -13,9 +13,30 @@ import { createBook } from '../api/book'
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
 function ghibliStyle(age) {
-  const ageDesc = age ? `${age} year old child` : 'young child'
-  return `${ageDesc} protagonist, cute kid face, Studio Ghibli anime style, soft watercolor, warm pastel colors, children storybook illustration, kid-friendly, no adults, highly detailed`
+  let ageDesc, bodyDesc
+  if (!age) {
+    ageDesc = 'young child'
+    bodyDesc = 'small round face, child body'
+  } else if (age <= 3) {
+    ageDesc = `${age} year old toddler`
+    bodyDesc = 'toddler body, baby face, chubby cheeks, very small child, short stature'
+  } else if (age <= 6) {
+    ageDesc = `${age} year old preschooler`
+    bodyDesc = 'small child body, round chubby face, big eyes, short stature, preschool age'
+  } else if (age <= 10) {
+    ageDesc = `${age} year old child`
+    bodyDesc = 'child body, young kid face, elementary school age'
+  } else {
+    ageDesc = `${age} year old child`
+    bodyDesc = 'child body, young face'
+  }
+  return `${ageDesc} protagonist, ${bodyDesc}, Studio Ghibli anime style, soft watercolor, warm pastel colors, children storybook illustration, kid-friendly, highly detailed`
 }
+
+// 성인/10대 묘사를 차단하는 negative prompt
+const NEGATIVE_PROMPT = encodeURIComponent(
+  'adult, teenager, teen, mature, grown up, elderly, old person, woman, man, sexy, realistic photo'
+)
 
 function buildIllustrationUrls(imageDescription, pageNum, childAge, { width = 512, height = 512 } = {}) {
   const style = ghibliStyle(childAge)
@@ -25,11 +46,12 @@ function buildIllustrationUrls(imageDescription, pageNum, childAge, { width = 51
 
   const encoded = encodeURIComponent(base)
   const simpleEncoded = encodeURIComponent(`children storybook scene ${pageNum}, ${style}`)
+  const neg = `&negative_prompt=${NEGATIVE_PROMPT}`
 
   return [
-    `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum}&width=${width}&height=${height}`,
-    `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum + 50}&width=${width}&height=${height}`,
-    `${API_BASE}/api/images/generate?prompt=${simpleEncoded}&seed=${pageNum}&width=${width}&height=${height}`,
+    `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum}&width=${width}&height=${height}${neg}`,
+    `${API_BASE}/api/images/generate?prompt=${encoded}&seed=${pageNum + 50}&width=${width}&height=${height}${neg}`,
+    `${API_BASE}/api/images/generate?prompt=${simpleEncoded}&seed=${pageNum}&width=${width}&height=${height}${neg}`,
   ]
 }
 
@@ -163,6 +185,12 @@ export default function Preview() {
   const [loadingBook, setLoadingBook] = useState(false)
   const [error, setError] = useState('')
 
+  // 텍스트 편집 상태
+  const [editingPage, setEditingPage] = useState(null)   // 현재 편집 중인 pageNumber (1-based)
+  const [editText, setEditText] = useState('')
+  const [savingEdit, setSavingEdit] = useState(false)
+  const [editError, setEditError] = useState('')
+
   useEffect(() => {
     if (!story) {
       getStory(id)
@@ -189,6 +217,36 @@ export default function Preview() {
       setError(err.message)
     } finally {
       setLoadingBook(false)
+    }
+  }
+
+  const handleEditStart = (page) => {
+    setEditingPage(page.pageNumber)
+    setEditText(page.text)
+    setEditError('')
+  }
+
+  const handleEditCancel = () => {
+    setEditingPage(null)
+    setEditText('')
+    setEditError('')
+  }
+
+  const handleEditSave = async (pageNumber) => {
+    if (!editText.trim()) {
+      setEditError('텍스트를 입력해주세요.')
+      return
+    }
+    setSavingEdit(true)
+    setEditError('')
+    try {
+      const updated = await updatePageText(Number(id), pageNumber, editText.trim())
+      setStory(updated)
+      setEditingPage(null)
+    } catch (err) {
+      setEditError(err.message || '저장에 실패했습니다.')
+    } finally {
+      setSavingEdit(false)
     }
   }
 
@@ -260,9 +318,65 @@ export default function Preview() {
                       <p className="text-xs font-semibold text-primary/60 tracking-widest uppercase mb-6">
                         Page {page.pageNumber}
                       </p>
-                      <p className="text-gray-800 text-lg md:text-xl leading-loose font-medium whitespace-pre-line">
-                        {page.text}
-                      </p>
+
+                      {editingPage === page.pageNumber ? (
+                        /* ── 편집 모드 ── */
+                        <div className="flex flex-col gap-3">
+                          <textarea
+                            value={editText}
+                            onChange={(e) => setEditText(e.target.value)}
+                            rows={8}
+                            maxLength={2000}
+                            className="w-full border-2 border-primary/40 rounded-xl px-4 py-3 text-gray-800
+                                       text-base leading-loose resize-none focus:outline-none focus:border-primary
+                                       transition-colors"
+                            autoFocus
+                          />
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-gray-400">{editText.length} / 2000자</span>
+                            {editError && (
+                              <span className="text-xs text-red-500">{editError}</span>
+                            )}
+                          </div>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={handleEditCancel}
+                              disabled={savingEdit}
+                              className="flex-1 py-2 rounded-xl border-2 border-gray-200 text-gray-600
+                                         text-sm font-semibold hover:border-gray-400 transition-colors
+                                         disabled:opacity-40"
+                            >
+                              취소
+                            </button>
+                            <button
+                              onClick={() => handleEditSave(page.pageNumber)}
+                              disabled={savingEdit || !editText.trim()}
+                              className="flex-1 py-2 rounded-xl bg-primary text-white
+                                         text-sm font-semibold hover:bg-primary/90 transition-colors
+                                         disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                              {savingEdit ? '저장 중...' : '저장'}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        /* ── 보기 모드 ── */
+                        <div className="group relative">
+                          <p className="text-gray-800 text-lg md:text-xl leading-loose font-medium whitespace-pre-line">
+                            {page.text}
+                          </p>
+                          {!previewOnly && (
+                            <button
+                              onClick={() => handleEditStart(page)}
+                              className="mt-4 flex items-center gap-1.5 text-xs text-gray-400
+                                         hover:text-primary border border-gray-200 hover:border-primary/40
+                                         px-3 py-1.5 rounded-full transition-colors"
+                            >
+                              ✏️ 텍스트 수정
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
               )}

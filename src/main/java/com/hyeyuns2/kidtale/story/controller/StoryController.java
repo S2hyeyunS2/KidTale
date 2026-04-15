@@ -3,6 +3,7 @@ package com.hyeyuns2.kidtale.story.controller;
 import com.hyeyuns2.kidtale.auth.entity.User;
 import com.hyeyuns2.kidtale.auth.repository.UserRepository;
 import com.hyeyuns2.kidtale.common.response.ApiResponse;
+import com.hyeyuns2.kidtale.story.dto.request.PageTextUpdateRequest;
 import com.hyeyuns2.kidtale.story.dto.request.StoryCreateRequest;
 import com.hyeyuns2.kidtale.story.dto.response.StoryResponse;
 import com.hyeyuns2.kidtale.story.service.StoryService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,10 +68,22 @@ public class StoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<StoryResponse>> getStory(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<StoryResponse>> getStory(@PathVariable("id") Long id) {
         log.debug("[StoryController] GET /api/stories/{}", id);
         StoryResponse response = storyService.findById(id);
         return ResponseEntity.ok(ApiResponse.ok(response));
+    }
+
+    /** 페이지 텍스트 수정 */
+    @PatchMapping("/{id}/pages/{pageNumber}")
+    public ResponseEntity<ApiResponse<StoryResponse>> updatePageText(
+            @PathVariable("id") Long id,
+            @PathVariable("pageNumber") int pageNumber,
+            @Valid @RequestBody PageTextUpdateRequest request
+    ) {
+        log.debug("[StoryController] PATCH /api/stories/{}/pages/{}. text={}", id, pageNumber, request.text());
+        StoryResponse response = storyService.updatePageText(id, pageNumber, request.text());
+        return ResponseEntity.ok(ApiResponse.ok("페이지가 수정되었습니다.", response));
     }
 
     /** 인증된 사용자의 userId 조회 — 비로그인이면 null 반환 */

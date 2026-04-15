@@ -32,13 +32,21 @@ public class ImageProxyController {
             @RequestParam("prompt") String prompt,
             @RequestParam(name = "seed", defaultValue = "1") int seed,
             @RequestParam(name = "width", defaultValue = "512") int width,
-            @RequestParam(name = "height", defaultValue = "512") int height
+            @RequestParam(name = "height", defaultValue = "512") int height,
+            @RequestParam(name = "negative_prompt", required = false) String negativePrompt
     ) {
         String encodedPrompt = URLEncoder.encode(prompt, StandardCharsets.UTF_8);
-        String uri = String.format("/prompt/%s?width=%d&height=%d&seed=%d&nologo=true",
-                encodedPrompt, width, height, seed);
+        StringBuilder uriBuilder = new StringBuilder(
+                String.format("/prompt/%s?width=%d&height=%d&seed=%d&nologo=true",
+                        encodedPrompt, width, height, seed)
+        );
+        if (negativePrompt != null && !negativePrompt.isBlank()) {
+            String encodedNeg = URLEncoder.encode(negativePrompt, StandardCharsets.UTF_8);
+            uriBuilder.append("&negative_prompt=").append(encodedNeg);
+        }
+        String uri = uriBuilder.toString();
 
-        log.debug("[ImageProxy] 이미지 요청. prompt='{}', seed={}", prompt, seed);
+        log.debug("[ImageProxy] 이미지 요청. prompt='{}', seed={}, negative_prompt='{}'", prompt, seed, negativePrompt);
 
         try {
             byte[] imageData = webClient.get()

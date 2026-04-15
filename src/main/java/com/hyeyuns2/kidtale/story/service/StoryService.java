@@ -62,6 +62,35 @@ public class StoryService {
                 .toList();
     }
 
+    @Transactional
+    public StoryResponse updatePageText(Long storyId, int pageNumber, String newText) {
+        Story story = storyRepository.findById(storyId)
+                .orElseThrow(() -> new KidTaleException(ErrorCode.STORY_NOT_FOUND));
+
+        List<StoryPage> pages = deserializePages(story.getPagesJson());
+
+        // pageNumber는 1-based
+        boolean found = false;
+        List<StoryPage> updatedPages = new java.util.ArrayList<>();
+        for (StoryPage page : pages) {
+            if (page.pageNumber() == pageNumber) {
+                updatedPages.add(new StoryPage(page.pageNumber(), newText, page.imageDescription()));
+                found = true;
+            } else {
+                updatedPages.add(page);
+            }
+        }
+
+        if (!found) {
+            throw new KidTaleException(ErrorCode.STORY_NOT_FOUND);
+        }
+
+        story.updatePagesJson(serializePages(updatedPages));
+        log.debug("[StoryService] 페이지 텍스트 수정 완료. storyId={}, pageNumber={}", storyId, pageNumber);
+
+        return toResponse(story, updatedPages);
+    }
+
     @Transactional(readOnly = true)
     public StoryResponse findById(Long id) {
         Story story = storyRepository.findById(id)
