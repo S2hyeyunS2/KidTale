@@ -49,7 +49,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<OrderResponse>> getOrder(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<OrderResponse>> getOrder(@PathVariable("id") Long id) {
         log.debug("[OrderController] GET /api/orders/{}", id);
         OrderResponse response = orderService.findById(id);
         return ResponseEntity.ok(ApiResponse.ok(response));

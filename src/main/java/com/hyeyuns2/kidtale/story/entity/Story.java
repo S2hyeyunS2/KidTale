@@ -74,4 +74,8 @@ public class Story extends BaseEntity {
         this.orderId = orderId;
         this.status = StoryStatus.ORDERED;
     }
+
+    public void updatePagesJson(String pagesJson) {
+        this.pagesJson = pagesJson;
+    }
 }
