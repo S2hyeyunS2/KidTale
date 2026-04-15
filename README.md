@@ -25,6 +25,48 @@
 
 ---
 
+## 📸 서비스 화면
+
+### 홈 — 실제 생성된 동화 샘플 썸네일
+
+> 테마별 AI 삽화가 자동 생성되어 카드 형태로 표시됩니다. 클릭 시 동화 미리보기로 이동합니다.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/302e6f7f-2720-4b61-9af1-75c2bb9c3bb0" width="90%" alt="홈 화면" />
+</p>
+
+---
+
+### 동화 미리보기 — AI 삽화 + 텍스트
+
+> 생성된 동화를 책 뷰어 형태로 한 페이지씩 감상할 수 있습니다. 왼쪽은 AI가 생성한 삽화, 오른쪽은 AI가 작성한 동화 텍스트입니다.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fe1edab9-9301-499b-96ee-a06ffdcd20fc" width="48%" alt="1페이지 — 해변 장면" />
+  <img src="https://github.com/user-attachments/assets/0ef377fa-293f-43e7-ae8b-15415a074bf8" width="48%" alt="2페이지 — 바닷속 장면" />
+</p>
+
+<p align="center">
+  <sub>왼쪽: 1페이지 — 해변 장면 / 오른쪽: 2페이지 — 바닷속 장면</sub>
+</p>
+
+---
+
+### 텍스트 인라인 편집
+
+> 마음에 들지 않는 내용은 ✏️ 버튼을 눌러 페이지별로 직접 수정하고 저장할 수 있습니다.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/084d3d22-7ac3-40a4-815e-17794e774d56" width="48%" alt="보기 모드" />
+  <img src="https://github.com/user-attachments/assets/c1520ee4-5827-422f-9e58-8303ecd26ce9" width="48%" alt="편집 모드" />
+</p>
+
+<p align="center">
+  <sub>왼쪽: 보기 모드 / 오른쪽: 편집 모드</sub>
+</p>
+
+---
+
 ## 2. 실행 방법
 
 ### 필수 환경
