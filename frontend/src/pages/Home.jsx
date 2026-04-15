@@ -242,11 +242,13 @@ function themePrompt(theme, childAge) {
   return base.replace(/^(cute young child|child)/, agePrefix)
 }
 
+const HOME_NEGATIVE = encodeURIComponent('adult, teenager, teen, mature, grown up, elderly, old person, woman, man, sexy, realistic photo')
+
 function SampleCoverImage({ title, theme, emoji, seed = 1, childAge }) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
   const prompt = encodeURIComponent(themePrompt(theme, childAge))
-  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${seed}&width=400&height=300`
+  const src = `${API_BASE}/api/images/generate?prompt=${prompt}&seed=${seed}&width=400&height=300&negative_prompt=${HOME_NEGATIVE}`
 
   if (error) {
     return (

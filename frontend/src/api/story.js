@@ -25,3 +25,12 @@ export const getMyStories = () =>
  */
 export const getStory = (id) =>
   api.get(`/api/stories/${id}`).then((res) => res.data.data)
+
+/**
+ * 특정 페이지 텍스트 수정 (PATCH /api/stories/:id/pages/:pageNumber)
+ * @param {number} storyId
+ * @param {number} pageNumber  1-based
+ * @param {string} text
+ */
+export const updatePageText = (storyId, pageNumber, text) =>
+  api.patch(`/api/stories/${storyId}/pages/${pageNumber}`, { text }).then((res) => res.data.data)
