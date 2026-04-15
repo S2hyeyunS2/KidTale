@@ -1,10 +1,7 @@
 package com.hyeyuns2.kidtale.order.controller;
 
-import com.hyeyuns2.kidtale.auth.entity.User;
-import com.hyeyuns2.kidtale.auth.repository.UserRepository;
-import com.hyeyuns2.kidtale.common.exception.ErrorCode;
-import com.hyeyuns2.kidtale.common.exception.KidTaleException;
 import com.hyeyuns2.kidtale.common.response.ApiResponse;
+import com.hyeyuns2.kidtale.common.security.SecurityUtils;
 import com.hyeyuns2.kidtale.order.dto.request.OrderCreateRequest;
 import com.hyeyuns2.kidtale.order.dto.response.OrderResponse;
 import com.hyeyuns2.kidtale.order.service.OrderService;
@@ -28,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final OrderService orderService;
-    private final UserRepository userRepository;
+    private final SecurityUtils securityUtils;
 
-    public OrderController(OrderService orderService, UserRepository userRepository) {
+    public OrderController(OrderService orderService, SecurityUtils securityUtils) {
         this.orderService = orderService;
-        this.userRepository = userRepository;
+        this.securityUtils = securityUtils;
     }
 
     @PostMapping
@@ -41,7 +38,7 @@ public class OrderController {
             @AuthenticationPrincipal UserDetails userDetails
     ) {
         log.debug("[OrderController] POST /api/orders. storyId={}", request.storyId());
-        Long userId = resolveUserId(userDetails);
+        Long userId = securityUtils.resolveUserIdOrThrow(userDetails);
         OrderResponse response = orderService.createOrder(request, userId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -62,12 +59,5 @@ public class OrderController {
         log.debug("[OrderController] GET /api/orders?storyId={}", storyId);
         OrderResponse response = orderService.findByStoryId(storyId);
         return ResponseEntity.ok(ApiResponse.ok(response));
-    }
-
-    private Long resolveUserId(UserDetails userDetails) {
-        if (userDetails == null) return null;
-        return userRepository.findByUsername(userDetails.getUsername())
-                .map(User::getId)
-                .orElseThrow(() -> new KidTaleException(ErrorCode.USER_NOT_FOUND));
     }
 }
