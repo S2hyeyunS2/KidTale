@@ -1,8 +1,7 @@
 package com.hyeyuns2.kidtale.story.controller;
 
-import com.hyeyuns2.kidtale.auth.entity.User;
-import com.hyeyuns2.kidtale.auth.repository.UserRepository;
 import com.hyeyuns2.kidtale.common.response.ApiResponse;
+import com.hyeyuns2.kidtale.common.security.SecurityUtils;
 import com.hyeyuns2.kidtale.story.dto.request.PageTextUpdateRequest;
 import com.hyeyuns2.kidtale.story.dto.request.StoryCreateRequest;
 import com.hyeyuns2.kidtale.story.dto.response.StoryResponse;
@@ -29,11 +28,11 @@ import java.util.List;
 public class StoryController {
 
     private final StoryService storyService;
-    private final UserRepository userRepository;
+    private final SecurityUtils securityUtils;
 
-    public StoryController(StoryService storyService, UserRepository userRepository) {
+    public StoryController(StoryService storyService, SecurityUtils securityUtils) {
         this.storyService = storyService;
-        this.userRepository = userRepository;
+        this.securityUtils = securityUtils;
     }
 
     @GetMapping
@@ -48,7 +47,7 @@ public class StoryController {
     public ResponseEntity<ApiResponse<List<StoryResponse>>> getMyStories(
             @AuthenticationPrincipal UserDetails userDetails
     ) {
-        Long userId = resolveUserId(userDetails);
+        Long userId = securityUtils.resolveUserIdOrNull(userDetails);
         log.debug("[StoryController] GET /api/stories/my. userId={}", userId);
         List<StoryResponse> response = storyService.findByUserId(userId);
         return ResponseEntity.ok(ApiResponse.ok(response));
@@ -59,7 +58,7 @@ public class StoryController {
             @Valid @RequestBody StoryCreateRequest request,
             @AuthenticationPrincipal UserDetails userDetails
     ) {
-        Long userId = resolveUserId(userDetails);
+        Long userId = securityUtils.resolveUserIdOrNull(userDetails);
         log.debug("[StoryController] POST /api/stories. childName={}, userId={}", request.childName(), userId);
         StoryResponse response = storyService.generateAndSave(request, userId);
         return ResponseEntity
@@ -84,13 +83,5 @@ public class StoryController {
         log.debug("[StoryController] PATCH /api/stories/{}/pages/{}. text={}", id, pageNumber, request.text());
         StoryResponse response = storyService.updatePageText(id, pageNumber, request.text());
         return ResponseEntity.ok(ApiResponse.ok("페이지가 수정되었습니다.", response));
-    }
-
-    /** 인증된 사용자의 userId 조회 — 비로그인이면 null 반환 */
-    private Long resolveUserId(UserDetails userDetails) {
-        if (userDetails == null) return null;
-        return userRepository.findByUsername(userDetails.getUsername())
-                .map(User::getId)
-                .orElse(null);
     }
 }

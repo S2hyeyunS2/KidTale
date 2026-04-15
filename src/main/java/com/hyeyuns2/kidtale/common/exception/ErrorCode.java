@@ -14,6 +14,7 @@ public enum ErrorCode {
 
     // Story
     STORY_NOT_FOUND(HttpStatus.NOT_FOUND, "STORY_NOT_FOUND", "동화를 찾을 수 없습니다."),
+    STORY_PAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORY_PAGE_NOT_FOUND", "해당 페이지를 찾을 수 없습니다."),
     STORY_GENERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "STORY_GENERATION_FAILED", "동화 생성에 실패했습니다."),
     AI_SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "AI_SERVICE_UNAVAILABLE", "AI 서비스가 일시적으로 과부하 상태입니다. 잠시 후 다시 시도해주세요."),
 
