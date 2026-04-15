@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -71,7 +72,7 @@ public class StoryService {
 
         // pageNumber는 1-based
         boolean found = false;
-        List<StoryPage> updatedPages = new java.util.ArrayList<>();
+        List<StoryPage> updatedPages = new ArrayList<>();
         for (StoryPage page : pages) {
             if (page.pageNumber() == pageNumber) {
                 updatedPages.add(new StoryPage(page.pageNumber(), newText, page.imageDescription()));
@@ -82,7 +83,7 @@ public class StoryService {
         }
 
         if (!found) {
-            throw new KidTaleException(ErrorCode.STORY_NOT_FOUND);
+            throw new KidTaleException(ErrorCode.STORY_PAGE_NOT_FOUND);
         }
 
         story.updatePagesJson(serializePages(updatedPages));
